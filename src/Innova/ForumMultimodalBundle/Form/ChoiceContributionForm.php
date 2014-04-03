@@ -1,0 +1,25 @@
+<?php
+
+namespace Innova\ForumMultimodalBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\Range;
+
+class ChoiceContributionForm extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('Choix', 'choice', array(
+             'choices' => array('oral' => 'Oral', 'texte' => 'Textuel', 'fichier' => 'Fichier'),
+             'expanded' => true,
+             'multiple' => false
+     ));
+    }
+    public function getName()
+    {
+        return 'innova_forummultimodalbundle_ChoiceContributionForm';
+    }
+}

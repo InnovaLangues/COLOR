@@ -1,0 +1,26 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<div class="row">
+	<div class="span2">
+	</div>
+     <div class="span5">
+	    <p>
+	   		 {{ 'registration.confirmed'|trans({'%username%': user.username}) }} 
+	    </p>
+    </div>
+</div>
+	<div class="span2">
+	</div>
+    <div class="span4">
+    	<a href="{{ path('innova_forum_multimodal_homepage')}}">Cliquer ici pour acceder à la page d'accueil</a>
+
+    </div>
+    {% if app.session is not empty %}
+        {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
+        {% if targetUrl is not empty %}<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>{% endif %}
+    {% endif %}
+
+{% endblock fos_user_content %}

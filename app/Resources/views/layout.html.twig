@@ -1,0 +1,73 @@
+{# app/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}test{% endblock %}</title>
+
+   {% block stylesheets %} 
+      <link rel="stylesheet" href="{{ asset('bundles/innovaforummultimodal/css/bootstrap/css/bootstrap.css') }}" type="text/css" />
+      <link href="{{ asset('bundles/innovaforummultimodal/css/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/innovaforummultimodal/css/bootstrap/css/style.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/innovaforummultimodal/css/bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet" type="text/css"/>  
+      <link rel="stylesheet" href="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/mediaelementplayer.css') }}" />
+      <script>path = "{{ asset('') }}";console.log(path);routeAjax = "{{path('innova_forum_multimodal_upload')}}"; console.log(routeAjax);</script>
+      <script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/jquery.js') }}"></script>
+      <script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/bootstrap.min.js') }}"></script>
+      <script src="http://cwilso.github.io/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
+      <script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/audiodisplay.js') }}"></script>
+{#       // <script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/libmp3lame.js') }}"></script>
+      // <script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/recorderWorker.js') }}"></script> #}
+      <script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/recorder.js') }}"></script>
+      <script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/mediaelement-and-player.min.js') }}"></script> 
+      <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+      <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+      {% endblock %}
+  </head>
+
+  <body>
+    <div class="container">
+    <div class="row">
+      <div class="span1" id="logoSite">
+        <a href="#">
+        <img src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/logo.png') }}"/>
+        </a>
+      </div>
+      <br/> 
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+      <div class="span6">
+      </div>
+      <div class="span5">
+        Connecté en tant que {{ app.user.username }} - <a class="btn btn-info" href="{{ path('fos_user_security_logout') }}"><i class="icon-user"></i> Déconnexion</a>
+      </div>
+    {% else %}
+          <div class="span9">
+      </div>
+      <div class="span2">
+        <a class="btn btn-info" href="{{ path('fos_user_security_login') }}"> <i class="icon-user"></i> Connexion</a>
+        </div>
+     {% endif %}
+     </div>
+      <header class="row">
+            <img src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/slide2.png') }}"/>
+      </header>
+
+      <div class="row">
+        <div id="content" class="span12">
+          {% block body %}
+
+          {% endblock %}
+        </div>
+      </div>
+
+      <footer>
+       
+      </footer>
+    </div>
+                <script>
+                $('audio').mediaelementplayer();
+            </script>
+                <script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/main.js') }}"></script>
+  </body>
+</html>

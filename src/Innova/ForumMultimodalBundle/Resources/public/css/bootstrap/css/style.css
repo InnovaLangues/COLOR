@@ -1,0 +1,140 @@
+.separator-full {
+	border-width:0;
+	line-height:0;
+	page-break-after:always;
+	text-align:center;
+	width:100%!important;
+	background:url("../images/separateur.png") no-repeat bottom;
+	height:22px;
+	clear:both;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 80px;
+}
+.style_ecriture
+{
+	text-align:left;
+	padding-top:11px;
+	padding-left:30px;
+    color: #333;
+	font-family: arial;
+	font-size: 13px;
+	line-height:22px;
+}
+.title
+{
+	text-align:left;
+	padding-left:30px;
+    color: #FF5B2B;
+	font-family: "Times New Roman";
+	font-size: 22px;
+}
+body {
+	margin:0;
+	padding:0;
+    text-align:center;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+footer {
+
+}
+
+header img {
+	width:90%;
+	height: 30%;
+}
+
+nav a {
+	color: #a9f;
+	border-top: 1px solid #666;
+}
+.bordureVert {
+	border-bottom: solid 2px #2ecc71;
+}
+
+.bordureBleu {
+	border-bottom: solid 2px #3498db;
+}
+
+.bordureJaune {
+	border-bottom: solid 2px #f1c40f;
+}
+.bordureRouge {
+	border-bottom: solid 2px #CB0B2B;
+}
+/* animation css3 */
+/* http://www.css3create.com*/
+#header .wrapLeft{width:360px;height:100%;background:#51c3fa;}
+#logoSite{height:75px;}
+#logoSite a{display:block;width:250px;margin-top:10px;height:64px;overflow:hidden;}
+#logoSite a:hover{
+-webkit-animation: tada 1s;
+   -moz-animation: tada 1s;
+    -ms-animation: tada 1s;
+     -o-animation: tada 1s;
+        animation: tada 1s;
+}
+@-webkit-keyframes tada {
+	0% {-webkit-transform: scale(1);}	
+	10%, 20% {-webkit-transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-webkit-transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {-webkit-transform: scale(1) rotate(-3deg);}
+	100% {-webkit-transform: scale(1) rotate(0);}
+}
+@-moz-keyframes tada {
+	0% {-moz-transform: scale(1);}	
+	10%, 20% {-moz-transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-moz-transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {-moz-transform: scale(1) rotate(-3deg);}
+	100% {-moz-transform: scale(1) rotate(0);}
+}
+@-ms-keyframes tada {
+	0% {-ms-transform: scale(1);}	
+	10%, 20% {-ms-transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-ms-transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {-ms-transform: scale(1) rotate(-3deg);}
+	100% {-ms-transform: scale(1) rotate(0);}
+}
+@-o-keyframes tada {
+	0% {-o-transform: scale(1);}	
+	10%, 20% {-o-transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {-o-transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {-o-transform: scale(1) rotate(-3deg);}
+	100% {-o-transform: scale(1) rotate(0);}
+}
+@keyframes tada {
+	0% {transform: scale(1);}	
+	10%, 20% {transform: scale(0.8) rotate(-3deg);}
+	30%, 50%, 70%, 90% {transform: scale(1) rotate(3deg);}
+	40%, 60%, 80% {transform: scale(1) rotate(-3deg);}
+	100% {transform: scale(1) rotate(0);}
+}
+}
+#controls {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		height: 20%;
+		width: 100%;
+	}
+	#record { height: 15vh; }
+	#record.recording { 
+		background: red;
+		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,#ffffff 75%,#ffffff 100%,#7db9e8 100%); 
+	}
+	#save { height: 10vh; }
+	#viz {
+		height: 80%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+	}
+	@media (orientation: landscape) {
+		body { flex-direction: row;}
+		#controls { flex-direction: column; height: 100%;}
+		#viz { height: 100%; width: 90%;}
+	}

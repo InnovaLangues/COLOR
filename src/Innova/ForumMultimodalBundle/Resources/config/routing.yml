@@ -1,0 +1,27 @@
+innova_forum_multimodal_homepage:
+    path:  /
+    defaults: { _controller: InnovaForumMultimodalBundle:Forum:addSubject }
+
+test:
+    resource: "@InnovaForumMultimodalBundle/Controller/"
+    type:       annotation
+    prefix:     /
+
+innova_forum_page_accueil:
+    path:  /welcome
+    defaults: { _controller: InnovaForumMultimodalBundle:Forum:welcome }
+
+innova_sans_connexion:
+    path:  /
+    defaults: { _controller: InnovaForumMultimodalBundle:Forum:index }
+
+innova_forum_multimodal_voir_contribution:
+    path:  /forum/contribution/{id}
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:voirContribution}
+    requirements:
+        id:  \d+
+innova_forum_multimodal_upload:
+    pattern:  /forum/contribution/ajax
+    defaults: { _controller:InnovaForumMultimodalBundle:Ajax:upload}
+    options:
+        expose: true

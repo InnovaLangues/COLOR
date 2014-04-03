@@ -1,0 +1,7 @@
+parameters:
+#    innova_users.example.class: Innova\UsersBundle\Example
+
+services:
+#    innova_users.example:
+#        class: %innova_users.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

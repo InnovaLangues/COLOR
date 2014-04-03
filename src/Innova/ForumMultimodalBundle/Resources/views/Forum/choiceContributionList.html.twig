@@ -1,0 +1,13 @@
+<div class="modal hide fade" id="Record">
+	  <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
+	    <h5>Ajouter une contribution – Choix du type de contribution</h5>
+	  </div>
+	<div class="modal-body">
+		<form method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <input type="submit" class="btn btn-primary" />
+    </form>
+	</div>
+    <div class="modal-footer"> <a class="btn btn-info" data-dismiss="modal">Fermer</a> </div>
+	</div>

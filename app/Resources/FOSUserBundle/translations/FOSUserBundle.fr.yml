@@ -1,0 +1,4 @@
+security:
+    login:
+        username: "Login"
+        password: "Mot de passe"

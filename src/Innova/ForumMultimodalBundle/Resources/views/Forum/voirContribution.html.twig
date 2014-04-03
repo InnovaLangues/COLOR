@@ -1,0 +1,12 @@
+
+{% extends "InnovaForumMultimodalBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block bloc1 %}
+<h1>Hello contribution n°{{ id }} !</h1>
+{% include "InnovaForumMultimodalBundle:Forum:enregistrer_forum.html.twig" %}
+{% include "InnovaForumMultimodalBundle:Forum:contribution_sujet_forum.html.twig" %}
+{% endblock %}

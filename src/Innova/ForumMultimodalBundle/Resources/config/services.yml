@@ -1,0 +1,7 @@
+parameters:
+#    innova_forum_multimodal.example.class: Innova\ForumMultimodalBundle\Example
+
+services:
+#    innova_forum_multimodal.example:
+#        class: %innova_forum_multimodal.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
