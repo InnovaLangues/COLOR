@@ -29,6 +29,11 @@
 	font-family: "Times New Roman";
 	font-size: 22px;
 }
+.txtConsigne
+{
+	width: 500px;
+	height:180px;
+}
 body {
 	margin:0;
 	padding:0;

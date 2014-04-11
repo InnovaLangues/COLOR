@@ -14,6 +14,7 @@
 */
 
 var audioContext = new AudioContext();
+var idsujet = null;
 var audioInput = null,
     realAudioInput = null,
     inputPoint = null,
@@ -99,19 +100,22 @@ function listen(stream) {
 
 function PostBlob(blob, fileName) {
     // FormData
+    var idsujet=document.getElementById('idsujet').value;
     var formData = new FormData();
     formData.append('audio-filename', fileName);
     formData.append('audio-blob', blob);
+    formData.append('idsujet', idsujet);
     console.log("formdata : "+formData);
     // POST the Blob
     pathRouteAjax=Routing.generate('innova_forum_multimodal_upload');
     console.log("pathRouteAjax "+pathRouteAjax);
+    console.log(idsujet);
     xhr(pathRouteAjax, formData, function (fileURL) {
         console.log("fileURL : "+fileURL);
         preview.src = '/../web/uploads' +'/'+ fileURL;
         if(preview.src)
         {
-            transfert.innerHTML = "Transfert réussi !!";
+            transfert.innerHTML = "Votre contribution a bien été déposée dans le Forum !!";
             transfert.style.visibility = "visible";
             chargement2.style.visibility = "hidden";
         }

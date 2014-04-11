@@ -2,6 +2,18 @@ innova_forum_multimodal_homepage:
     path:  /
     defaults: { _controller: InnovaForumMultimodalBundle:Forum:addSubject }
 
+innova_forum_multimodal_add_contribution_text:
+    path:  /forum/contribution/add/text/{id}
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:addContribution}
+    requirements:
+        id:  \d+
+
+innova_forum_multimodal_add_contribution_file:
+    path:  /forum/contribution/add/file/{id}
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:addContributionFile}
+    requirements:
+        id:  \d+
+
 test:
     resource: "@InnovaForumMultimodalBundle/Controller/"
     type:       annotation
@@ -17,9 +29,10 @@ innova_sans_connexion:
 
 innova_forum_multimodal_voir_contribution:
     path:  /forum/contribution/{id}
-    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:voirContribution}
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:showContribution}
     requirements:
         id:  \d+
+
 innova_forum_multimodal_upload:
     pattern:  /forum/contribution/ajax
     defaults: { _controller:InnovaForumMultimodalBundle:Ajax:upload}

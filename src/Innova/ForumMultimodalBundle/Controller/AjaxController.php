@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Innova\ForumMultimodalBundle\Entity\Contribution;
 
 class AjaxController extends Controller
 {
@@ -14,21 +15,25 @@ class AjaxController extends Controller
 	 */
 	  public function uploadAction()
 	  {
+	  	$idsujet = (isset($_POST["idsujet"])) ? $_POST["idsujet"] : NULL;
 		$request = $this->container->get('request');
+		$contribution = new Contribution();
+		$user = $this->get('security.context')->getToken()->getUser();
+		$em = $this->getDoctrine()->getManager();
+		$subject = $em->getRepository('InnovaForumMultimodalBundle:Subject')->find($idsujet);
+		$contribution->setDate(new \Datetime());
+    	$contribution->setUser($user);
+    	$contribution->setExtension("null");
+    	$contribution->setTime(new \Datetime());
+    	$contribution->setType("oral");
+    	$file = "uploads/".$_POST["audio-filename"];
+    	$contribution->setContents($file);
+    	$contribution->setSubject($subject);
+    	$em = $this->getDoctrine()->getManager();
+        $em->persist($contribution);
+        $em->flush();
 		$webPath = $this->get('kernel')->getRootDir().'/../web/uploads/';
 		// $webPath = $this->container->getParameter('kernel.root_dir').'/../web/uploads/';
-
-		// if (is_writable("/Users/Mahmoud/htdocs/Symfony/web/uploads"))
-		// {
-		// 	echo 'c_est bon on peux écrire';
-		// 	exit();
-		// }
-		// else
-		// {
-		//  	echo 'ha ba non en fait XD';
-		//  	exit();
-		// }
-
 		foreach(array('audio') as $type) {
 		    if (!empty($_FILES["${type}-blob"])) { 
 		    	// print_r($_FILES);
