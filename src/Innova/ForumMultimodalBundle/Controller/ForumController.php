@@ -5,6 +5,7 @@ namespace Innova\ForumMultimodalBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Innova\ForumMultimodalBundle\Entity\Subject;
+use Innova\ForumMultimodalBundle\Entity\Contribution;
 
 class ForumController extends Controller
 {
@@ -58,13 +59,30 @@ class ForumController extends Controller
       }
     }
 
+    // tableau pour compter le nombre de Contribution de chaque sujet 
+    $tableauCountContribution = array();
+    // on recupere tous les sujets
+    $emSubject = $this->getDoctrine()->getManager();
+    $entitiesSubject = $emSubject->getRepository('InnovaForumMultimodalBundle:Subject')->findAll();
+    foreach($entitiesSubject as $sujet)
+        {
+          // pour chaque sujet, on recupere son id
+          $id = $sujet->getId();
+          // on compte le nombre de contribution pour chaque sujet
+          $emContribution = $this->getDoctrine()->getManager();
+          $listeContributions = $emContribution->getRepository('InnovaForumMultimodalBundle:Contribution')->findBy(array('subject' => $id));
+          $countContribution = count($listeContributions);
+          // on rajoute le noombre de contribution par sujet dans le tableau : tableauCountContribution
+          array_push($tableauCountContribution,$countContribution);
+        }
+
     // À ce stade :
     // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
     // - Soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
     $em2 = $this->getDoctrine()->getManager();
     $entities = $em2->getRepository('InnovaForumMultimodalBundle:Subject')->findAll();
     return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig', array(
-      'form' => $form->createView(),'entities' => $entities,
+      'form' => $form->createView(),'entities' => $entities,'tableauCountContribution' => $tableauCountContribution,
     ));
   }
   public function deleteSubjectAction()

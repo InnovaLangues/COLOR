@@ -15,7 +15,7 @@ class AjaxController extends Controller
 	 */
 	  public function uploadAction()
 	  {
-	  	$idsujet = (isset($_POST["idsujet"])) ? $_POST["idsujet"] : NULL;
+	  	$idsujet = $_POST["idsujet"];
 		$request = $this->container->get('request');
 		$contribution = new Contribution();
 		$user = $this->get('security.context')->getToken()->getUser();

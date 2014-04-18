@@ -109,7 +109,7 @@ function PostBlob(blob, fileName) {
     // POST the Blob
     pathRouteAjax=Routing.generate('innova_forum_multimodal_upload');
     console.log("pathRouteAjax "+pathRouteAjax);
-    console.log(idsujet);
+    console.log("id mta3 zebi est : "+idsujet);
     xhr(pathRouteAjax, formData, function (fileURL) {
         console.log("fileURL : "+fileURL);
         preview.src = '/../web/uploads' +'/'+ fileURL;
