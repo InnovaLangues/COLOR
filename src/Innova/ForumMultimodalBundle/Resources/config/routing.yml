@@ -3,13 +3,13 @@ innova_forum_multimodal_homepage:
     defaults: { _controller: InnovaForumMultimodalBundle:Forum:addSubject }
 
 innova_forum_multimodal_add_contribution_text:
-    path:  /forum/contribution/add/text/{id}
+    path:  /forum/contribution/add/text/subject/{id}
     defaults: { _controller:InnovaForumMultimodalBundle:Contribution:addContribution}
     requirements:
         id:  \d+
 
 innova_forum_multimodal_add_contribution_file:
-    path:  /forum/contribution/add/file/{id}
+    path:  /forum/contribution/add/file/subject/{id}
     defaults: { _controller:InnovaForumMultimodalBundle:Contribution:addContributionFile}
     requirements:
         id:  \d+
@@ -28,7 +28,7 @@ innova_sans_connexion:
     defaults: { _controller: InnovaForumMultimodalBundle:Forum:index }
 
 innova_forum_multimodal_voir_contribution:
-    path:  /forum/contribution/{id}
+    path:  /forum/contribution/subject/oral/{id}
     defaults: { _controller:InnovaForumMultimodalBundle:Contribution:showContribution}
     requirements:
         id:  \d+
