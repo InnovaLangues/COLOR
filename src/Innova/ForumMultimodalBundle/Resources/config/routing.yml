@@ -9,7 +9,7 @@ innova_forum_multimodal_add_contribution_text:
         id:  \d+
 
 innova_forum_multimodal_add_contribution_file:
-    path:  /forum/subject/{id}/contribution/add/file
+    path:  /forum/contribution/add/file/subject/{id}
     defaults: { _controller:InnovaForumMultimodalBundle:Contribution:addContributionFile}
     requirements:
         id:  \d+
@@ -28,7 +28,7 @@ innova_sans_connexion:
     defaults: { _controller: InnovaForumMultimodalBundle:Forum:index }
 
 innova_forum_multimodal_voir_contribution:
-    path:  /forum/show/subject/{id}/contribution
+    path:  /forum/contribution/subject/oral/{id}
     defaults: { _controller:InnovaForumMultimodalBundle:Contribution:showContribution}
     requirements:
         id:  \d+
