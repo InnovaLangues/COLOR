@@ -75,26 +75,36 @@ class ContributionController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 //On récupère les données entrées dans le formulaire par l'utilisateur
                 $choix = $form["Choix"]->getData();
+                // tokenId nous permet de savoir si la contribution est une contribution mere ou une contribution fils
+                $tokenId = $form["token"]->getData();
                 $data = $this->getRequest()->request->get('innova_forummultimodalbundle_ChoiceContributionForm');
+                // si c'est une contribution mere
+                if($tokenId == 0)
+                {
                 //Puis on redirige vers la page de visualisation
-                if($choix=="oral")
-                {
-                    // return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $id)));
-                    return $this->render('InnovaForumMultimodalBundle:Forum:showContribution.html.twig', array('id' => $id,'listeContributions' => $listeContributions,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
+                    if($choix=="oral")
+                    {
+                        // return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $id)));
+                        return $this->render('InnovaForumMultimodalBundle:Forum:showContribution.html.twig', array('id' => $id,'listeContributions' => $listeContributions,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
+                    }
+                    else if($choix=="texte")
+                    {
+                      
+                      return $this->redirect($this->generateUrl('innova_forum_multimodal_add_contribution_text', array('id' => $id)));
+                      // le probleme de forward ==> il va garder le test sur le post de premier fonction
+                      // par la suite dans la deuxieme methode il va garder la validiter de POST, quand il va essayer de valider le formulaire 
+                      // il va pas trouver ce qu'il attend ==> merci à Axel
+                      // return $this->forward('InnovaForumMultimodalBundle:Contribution:addContribution', array('id' => $id));
+                      // return $this->render('InnovaForumMultimodalBundle:Forum:addTextContribution.html.twig', array('form' => $form2->createView(),'id' => $id,'listeContributions' => $listeContributions,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
+                    }
+                    else if($choix=="fichier")
+                    {
+                      return $this->redirect($this->generateUrl('innova_forum_multimodal_add_contribution_file', array('id' => $id)));             
+                    }
                 }
-                else if($choix=="texte")
+                else
                 {
-                  
-                  return $this->redirect($this->generateUrl('innova_forum_multimodal_add_contribution_text', array('id' => $id)));
-                  // le probleme de forward ==> il va garder le test sur le post de premier fonction
-                  // par la suite dans la deuxieme methode il va garder la validiter de POST, quand il va essayer de valider le formulaire 
-                  // il va pas trouver ce qu'il attend ==> merci à Axel
-                  // return $this->forward('InnovaForumMultimodalBundle:Contribution:addContribution', array('id' => $id));
-                  // return $this->render('InnovaForumMultimodalBundle:Forum:addTextContribution.html.twig', array('form' => $form2->createView(),'id' => $id,'listeContributions' => $listeContributions,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
-                }
-                else if($choix=="fichier")
-                {
-                  return $this->redirect($this->generateUrl('innova_forum_multimodal_add_contribution_file', array('id' => $id)));             
+                    echo "c'est une contribution fils";
                 }
             }
         }

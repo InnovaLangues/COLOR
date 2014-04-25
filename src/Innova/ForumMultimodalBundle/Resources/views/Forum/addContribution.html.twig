@@ -12,7 +12,7 @@
 							</form>
 						</td>
 						<td>
-							<a class="btn btn-danger" data-toggle="modal" href="#" data-target="#Record">Ajouter une contribution</a> 
+							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-target="#Record" data-id="0" onclick="fct(0);">Ajouter une contribution</a> 
 						</td>
 						<td>
 							<a class="btn btn-danger" data-toggle="modal" href="#" data-target="#Listen">Tout lire</a> 
@@ -59,12 +59,9 @@
 								{% endif %}
 						</td>
 						<td>
-
-							<form action="#" method="post">
 							<br />
-								<input type="button" class="btn btn-danger" name="ajout" style="text-align: center;" value="Réagir"/>
-								<span style="font-weight: bold; color: #1290D0;">Nombre de commentaires</span>
-							</form>
+							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-target="#Record" data-id="{{sons.id}}" onclick="fct({{sons.id}});">Réagir</a> 
+							<span style="font-weight: bold; color: #1290D0;">Nombre de commentaires</span>
 						</td>
 					</tr>
 					{% endfor %}

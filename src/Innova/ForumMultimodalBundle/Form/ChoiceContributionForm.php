@@ -16,7 +16,10 @@ class ChoiceContributionForm extends AbstractType
              'choices' => array('oral' => 'Oral', 'texte' => 'Textuel', 'fichier' => 'Fichier'),
              'expanded' => true,
              'multiple' => false
-     ));
+     ))
+            ->add('token', 'hidden', array(
+            "mapped" => false,
+        ));
     }
     public function getName()
     {

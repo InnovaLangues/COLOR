@@ -1,15 +1,66 @@
+<script>
+console.log("test");
+function messageFlash(x)
+  {
+    var msg = document.getElementById("msgFlsh");
+    var div = document.createElement('div');
+    div.setAttribute('class', "alert-success");
+    msg.appendChild( div );
+    if(x == 0)
+    {
+        div.innerHTML = "Opération annuler";
+        // On l'efface 8 secondes plus tard
+        setTimeout(function() { div.innerHTML = "";},2000);
+        // div.style.visibility = "hidden";
+    }
+    else if(x == 1)
+    {
+        div.innerHTML = "Votre collectorama a été créée avec success";
+        setTimeout(function() { div.innerHTML = "";},2000);
+    }
+  }
+</script>
 <div class="modal hide fade" id="ajout">
     <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
       <h3>Créer un nouveau Collectorama</h3>
     </div>
   <div class="modal-body">
+    <div id="msgFlsh"></div>
         <div class="well">
 
           <form method="post" {{ form_enctype(form) }}>
-            {{ form_widget(form) }}
-            <input type="submit" value="Valider" class="btn btn-primary" />
-          </form>
+
+            {# {{ form_widget(form) }} #}
+            <table>
+                <div class="row">
+                    <div class="span2">
+                      {{ form_label(form.sujet) }}
+                    </div>
+                    <div class="span2">
+                      {{ form_widget(form.sujet) }}
+                    </div>
+                    <div class="span2">
+                      {{ form_errors(form.sujet) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                      {{ form_label(form.Consigne) }}
+                    </div>
+                    <div class="span2">
+                      {{ form_widget(form.Consigne) }}
+                    </div>
+                    <div class="span2">
+                      {{ form_errors(form.Consigne) }}
+                    </div>
+                </div>
+            </table>
+            {{ form_rest(form) }}
         </div>
   </div>
-    <div class="modal-footer"> <a class="btn btn-info" data-dismiss="modal">Fermer</a> </div>
+    <div class="modal-footer"> 
+            <input type="reset" value="Annuler" class="btn btn-primary" onclick="messageFlash(0);" />
+            <input type="submit" value="Valider" class="btn btn-primary" onclick="messageFlash(1);"/>
+          </form>
+          </div>
   </div>

@@ -16,8 +16,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 DEALINGS IN THE SOFTWARE.
 */
-console.log(location.href.substr( 0, location.href.lastIndexOf('/'))+"/libmp3lame.js");
+// console.log(location.href.substr( 0, location.href.lastIndexOf('/'))+"/libmp3lame.js");
 var pathLame = location.href.substr( 0, location.href.lastIndexOf('/'))+"/libmp3lame.js";
+console.log("chemin du bib lame   :  "+pathLame);
 importScripts(pathLame);
 var recLength = 0,
   recBuffersL = [],
