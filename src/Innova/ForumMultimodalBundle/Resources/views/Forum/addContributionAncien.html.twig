@@ -23,26 +23,26 @@
 							<br /><br />
 							<div id="forFormChoix_0">
 								<div id="FormulaireChoix" class="well">
-									<h6><font color="blue">Ajouter une contribution - Choix du type de contribution</font></h6>
-								        <table> 
-								        <div class="row">
-									                <div class="span4"> 
-								       					 <a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#Record" >Enregistrement audio</a>
-								       				</div>
-								       	</div>
-								       	<br />
-								       	<div class="row">
-									                <div class="span4"> 
-								       					 <a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#texte" >Edition texte</a>
-								       				</div>
-								       	</div>
-								       	<br />
-								       	<div class="row">
-									                <div class="span4">  
-														<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#file">Dêpot fichier</a>    
-													</div>
-								       	</div> 
+									<form method="post" {{ form_enctype(form) }}>
+								        <table>       
+									        {% for child in form.Choix %}
+									        	<div class="row">
+									                <div class="span2">
+									                  {{ form_widget(child) }}
+									                </div>
+									                <div class="span2">
+									                  {{ form_label(child) }}
+									                </div>
+									                <div class="span2">
+									                  {{ form_errors(child) }}
+									                </div>
+									            </div>
+											{% endfor %}
 								        </table>
+								        {{ form_rest(form) }}
+
+								        <input type="submit" value="Valider" class="btn btn-primary" />
+								    </form>
 								</div>
 							</div>
 							</td>

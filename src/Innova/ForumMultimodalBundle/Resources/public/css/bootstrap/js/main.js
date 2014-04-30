@@ -51,14 +51,9 @@ img2.setAttribute('width', '24px');
 chargement2.appendChild( img2 );
 chargement2.style.visibility = "hidden";
 /*  Fin partie chargement */
-/* Partie pour declarer la balise avec js */
 var recordAudio =document.getElementById("recordAudio");
 var audio = document.createElement('audio');
-audio.setAttribute('id', 'preview');
-audio.setAttribute('controls', '');
-recordAudio.appendChild( audio );
-var EltAudio =document.getElementById("preview");
-/* fin balise audio */
+audio.style.visibility = "hidden";
 /* Compteur */
  var affichageCompteur = document.getElementById("compt");
 var compte = 1;
@@ -91,6 +86,15 @@ function saveAudio() {
     // audioRecorder.exportMonoWAV( doneEncoding );
 }
 function listen(stream) {
+        /* Partie pour declarer la balise avec js */
+        audio.style.visibility = "visible";
+        MsgEnregistrement.innerHTML = "";
+        totale.innerHTML = "";
+        audio.setAttribute('id', 'preview');
+        audio.setAttribute('controls', '');
+        recordAudio.appendChild( audio );
+        var EltAudio =document.getElementById("preview");
+        /* fin balise audio */
         chargement2.style.visibility = "hidden";
         EltAudio.src = window.URL.createObjectURL(stream);
         console.log("preview.src : "+EltAudio.src);
@@ -123,9 +127,11 @@ function PostBlob(blob, fileName) {
 }
 function Deposer()
 {
-    // audioRecorder.exportWAV( doneEncoding2 );
-    audioRecorder.exportMP3( doneEncoding2 );
+    audioRecorder.exportWAV( doneEncoding2 );
+    // audioRecorder.exportMP3( doneEncoding2 );
     chargement2.style.visibility = "visible";
+    MsgEnregistrement.innerHTML = "";
+    totale.innerHTML = "";
 }
 
 function drawWave( buffers ) {
@@ -139,23 +145,28 @@ function doneEncoding( blob ) {
 }
 function doneEncoding2( blob ) {
     fileName = Math.round(Math.random() * 99999999) + 99999999;
-    PostBlob(blob, fileName + '.mp3');
+    PostBlob(blob, fileName + '.wav');
     // Recorder.forceDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
     // recIndex++;
 }
 
 function toggleRecording( e ) {
+    audio.style.visibility = "hidden";
     if (e.classList.contains("recording")) {
         // stop recording
         audioRecorder.stop();
         e.classList.remove("recording");
         audioRecorder.getBuffers( drawWave );
+        MsgEnregistrement.innerHTML = "Enregistrement terminé";
+        totale.innerHTML = "Total : ";
          divChargement.style.visibility = "hidden";
          transfert.style.visibility = "hidden";
          clearInterval(timer);
          compte = 1;
 
     } else {
+            MsgEnregistrement.innerHTML = "";
+            totale.innerHTML = "";
             transfert.style.visibility = "hidden";
         divChargement.style.visibility = "visible";
         compte = 1;

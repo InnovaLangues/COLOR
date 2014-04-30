@@ -17,7 +17,7 @@ class ChoiceContributionForm extends AbstractType
              'expanded' => true,
              'multiple' => false
      ))
-            ->add('token', 'hidden', array(
+            ->add('token', 'text', array(
             "mapped" => false,
         ));
     }

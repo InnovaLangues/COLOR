@@ -17,13 +17,13 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 DEALINGS IN THE SOFTWARE.
 */
 // console.log(location.href.substr( 0, location.href.lastIndexOf('/'))+"/libmp3lame.js");
-var pathLame = location.href.substr( 0, location.href.lastIndexOf('/'))+"/libmp3lame.js";
-console.log("chemin du bib lame   :  "+pathLame);
-importScripts(pathLame);
-var recLength = 0,
-  recBuffersL = [],
-  recBuffersR = [],
-  sampleRate;
+// var pathLame = location.href.substr( 0, location.href.lastIndexOf('/'))+"/libmp3lame.js";
+// console.log("chemin du bib lame   :  "+pathLame);
+// importScripts(pathLame);
+// var recLength = 0,
+//   recBuffersL = [],
+//   recBuffersR = [],
+//   sampleRate;
 
 this.onmessage = function(e){
   switch(e.data.command){

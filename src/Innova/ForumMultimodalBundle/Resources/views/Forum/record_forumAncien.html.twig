@@ -1,0 +1,93 @@
+<div class="modal hide fade" id="Record">
+	  <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
+	    <h5>Ajouter une contribution – Enregistrement audio</h5>
+	  </div>
+	<div class="modal-body">
+		<!doctype html>
+		<html>
+		<head>
+			<meta name="viewport" content="width=device-width,initial-scale=1">
+			<title>Audio Recorder</title>
+		    <script src="http://cwilso.github.io/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
+			<script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/audiodisplay.js') }}"></script>
+			<script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/recorder.js') }}"></script>
+			<style>
+			body { 
+				display: flex;
+				flex-direction: column;
+				height: 100vh;
+				width: 100%;
+				margin: 0 0;
+			}
+			canvas {
+				display: inline-block; 
+				background: #202020;
+				width: 90%;
+				height: 25%;
+				box-shadow: 0px 0px 10px blue;
+			}
+			</style>
+		</head>
+		<body>
+			<div id="viz">
+			<table class="table table-striped table-bordered">
+				<tr>
+					<div class="alert-success"><span id="transfert"></span></div>
+					
+				</tr>
+				<tr>
+				<br />
+				</tr>
+				<tr>
+					<td id="recordAudio">
+						<!-- <audio id="preview" controls></audio> -->
+					</td>
+					<td>
+						<canvas id="analyser" width="300" height="150"></canvas>
+					</td>
+					<td>
+						<canvas id="wavedisplay" width="300" height="150"></canvas>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<div id="controls">
+			<table>
+				<tr>
+					<td>
+						<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/mic128.png') }}" onclick="toggleRecording(this);">
+					</td>
+					<td>
+						<button class="btn btn-danger" style="position: static; float: right;" onclick="saveAudio();">S’écouter</button>
+					</td>
+					<td width="35">
+					</td>
+					<td>
+						<button class="btn btn-danger" style="position: static; float: right;" onclick="Deposer();">Déposer</button>
+					</td>
+					<td>
+							<div id="chargement2">
+
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="chargement">
+
+						</div>
+					</td>
+					<td>
+						<span id="compt"></span>
+					</td>
+					<td>
+						
+					</td>
+				</tr>
+			</table>
+			</div>
+		</body>
+		</html>
+	</div>
+    <div class="modal-footer"> <a class="btn btn-info" data-dismiss="modal">Fermer</a> </div>
+	</div>

@@ -6,14 +6,42 @@
 
 {% block bloc1 %}
 <script>
-	function fct(x)
-	{
-	var asba = document.getElementById("innova_forummultimodalbundle_ChoiceContributionForm_token");
-	asba.value = x;
-	console.log(asba);
-	}
+	function afficher_cacher(id,x,y)
+    {
+  //   	var contributionToken = document.getElementById("innova_forummultimodalbundle_ChoiceContributionForm_token");
+		// contributionToken.value = x;
+		// console.log(contributionToken);
+		if(x == 0 && y == "bas")
+		{
+			var idDivFormChoix ="forFormChoix_bas";
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			console.log(DivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+
+		}
+		else
+		{
+			var idDivFormChoix ="forFormChoix_"+x;
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			console.log(DivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+		}
+        if(document.getElementById(id).style.visibility=="hidden")
+        {
+            document.getElementById(id).style.visibility="visible";
+        }
+        else
+        {
+            document.getElementById(id).style.visibility="hidden";
+        }
+        return true;
+    }
+
 </script>
-{% include "InnovaForumMultimodalBundle:Forum:choiceContributionList.html.twig" %}
+{# {% include "InnovaForumMultimodalBundle:Forum:choiceContributionList.html.twig" %} #}
+{% include "InnovaForumMultimodalBundle:Forum:addFileContribution.html.twig" %}
+{% include "InnovaForumMultimodalBundle:Forum:addTextContribution.html.twig" %}
+{% include "InnovaForumMultimodalBundle:Forum:record_forum.html.twig" %}
 {% include "InnovaForumMultimodalBundle:Forum:addContribution.html.twig" %}
 
 {% endblock %}

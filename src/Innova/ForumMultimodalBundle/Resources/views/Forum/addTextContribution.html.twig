@@ -1,4 +1,4 @@
-{% extends "InnovaForumMultimodalBundle::layout.html.twig" %}
+{# {% extends "InnovaForumMultimodalBundle::layout.html.twig" %}
 
 {% block title %}
   Accueil - {{ parent() }}
@@ -31,4 +31,48 @@
 	</tr>
 </table>
 	{{ tinymce_init() }}
-{% endblock %}
+{% endblock %} #}
+
+<script>
+console.log("test");
+function messageFlashText(x)
+  {
+    var msg = document.getElementById("msgFlshTxt");
+    var div = document.createElement('div');
+    div.setAttribute('class', "alert-success");
+    msg.appendChild( div );
+    if(x == 0)
+    {
+        div.innerHTML = "Opération annuler";
+        // On l'efface 2 secondes plus tard
+        setTimeout(function() { div.innerHTML = "";},2000);
+    }
+    else if(x == 1)
+    {
+        div.innerHTML = "Votre contribution a été déposé avec success";
+        setTimeout(function() { div.innerHTML = "";},2000);
+    }
+  }
+</script>
+<input type="hidden" id="idsujet" value="{{ id }}"/>
+<div class="modal hide fade" id="texte">
+	  <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
+	    <h5>Ajouter une contribution – Edition texte</h5>
+	  </div>
+	<div class="modal-body">
+	<div id="msgFlshTxt"></div>
+	<br />
+		<form action="" method="post" {{ form_enctype(form2) }}>
+	            {{ form_widget(form2.Editeur) }}
+	             {{ form_rest(form2) }}
+	            <br />
+
+		</div>
+          <div class="modal-footer"> 
+            <input type="reset" value="Annuler" class="btn btn-primary" onclick="messageFlashText(0);" />
+            <input type="submit" value="Déposer" class="btn btn-primary" onclick="messageFlashText(1);"/>
+          </form>
+          </div>
+  </div>
+
+{{ tinymce_init() }}
