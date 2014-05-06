@@ -8,9 +8,15 @@
 <script>
 	function afficher_cacher(id,x,y)
     {
-  //   	var contributionToken = document.getElementById("innova_forummultimodalbundle_ChoiceContributionForm_token");
-		// contributionToken.value = x;
-		// console.log(contributionToken);
+  		var contributionTexte = document.getElementById("innova_forummultimodalbundle_TinymceForm_token");
+		contributionTexte.value = x;
+		console.log(contributionTexte);
+		var contributionFile = document.getElementById("pereoufils");
+		contributionFile.value = x;
+		console.log(contributionFile);
+		var contributionOral = document.getElementById("pereoufilsoral");
+		contributionOral.value = x;
+		console.log(contributionOral);
 		if(x == 0 && y == "bas")
 		{
 			var idDivFormChoix ="forFormChoix_bas";

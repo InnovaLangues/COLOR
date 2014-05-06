@@ -65,11 +65,20 @@ function messageFlashFile(x)
 		<form enctype="multipart/form-data" action="{{ path('innova_forum_multimodal_add_contribution_file', {id: id }) }}" method="post">
                 <div class="row">
                     <div class="span2">
-                      Choisissez le fichier à deposer : 
+                      Ajouter fichier : 
                     </div>
                     <div class="span2">
                       <input type="file" id="file" name="file" required="required"/>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                      Nom du lien (facultatif): 
+                    </div>
+                    <div class="span2">
+                      <input type="text" id="lien" name="lien" />
+                    </div>
+                    <input type="hidden" id="pereoufils" name="pereoufils"/>
                 </div>
 	 </div>
 	</div>

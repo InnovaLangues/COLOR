@@ -24,6 +24,7 @@ var analyserContext = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
 var cheminSave=path+"";
+document.getElementById("ecouter").disabled = true;
 
 /* Partie chargement image pour enregistrement*/
 // le probleme ici qu'il ne trouve pas cette element chargement dans la page
@@ -79,6 +80,7 @@ function compter()
 var fileName;
 function saveAudio() {
     // audioRecorder.exportMP3( doneEncoding );
+    document.getElementById("ecouter").disabled = false;
     audioRecorder.exportWAV( doneEncoding );
     affichageCompteur.style.visibility = "hidden";
     chargement2.style.visibility = "hidden";
@@ -87,6 +89,7 @@ function saveAudio() {
 }
 function listen(stream) {
         /* Partie pour declarer la balise avec js */
+        document.getElementById("ecouter").disabled = false;
         audio.style.visibility = "visible";
         MsgEnregistrement.innerHTML = "";
         totale.innerHTML = "";
@@ -105,10 +108,12 @@ function listen(stream) {
 function PostBlob(blob, fileName) {
     // FormData
     var idsujet=document.getElementById('idsujet').value;
+    var pereoufils=document.getElementById('pereoufilsoral').value;
     var formData = new FormData();
     formData.append('audio-filename', fileName);
     formData.append('audio-blob', blob);
     formData.append('idsujet', idsujet);
+    formData.append('pereoufils', pereoufils);
     console.log("formdata : "+formData);
     // POST the Blob
     pathRouteAjax=Routing.generate('innova_forum_multimodal_upload');
@@ -116,8 +121,9 @@ function PostBlob(blob, fileName) {
     console.log("id mta3 zebi est : "+idsujet);
     xhr(pathRouteAjax, formData, function (fileURL) {
         console.log("fileURL : "+fileURL);
-        preview.src = '/../web/uploads' +'/'+ fileURL;
-        if(preview.src)
+        // preview.src = '/../web/uploads' +'/'+ fileURL;
+        // if(preview.src)
+        if(fileURL)
         {
             transfert.innerHTML = "Votre contribution a bien été déposée dans le Forum !!";
             transfert.style.visibility = "visible";
@@ -152,6 +158,8 @@ function doneEncoding2( blob ) {
 
 function toggleRecording( e ) {
     audio.style.visibility = "hidden";
+    document.getElementById("enregistrer").innerHTML =  "Enregistrer";
+    document.getElementById("ecouter").disabled = false;
     if (e.classList.contains("recording")) {
         // stop recording
         audioRecorder.stop();
@@ -165,6 +173,8 @@ function toggleRecording( e ) {
          compte = 1;
 
     } else {
+        document.getElementById("ecouter").disabled = true;
+          document.getElementById("enregistrer").innerHTML = "Stop";
             MsgEnregistrement.innerHTML = "";
             totale.innerHTML = "";
             transfert.style.visibility = "hidden";

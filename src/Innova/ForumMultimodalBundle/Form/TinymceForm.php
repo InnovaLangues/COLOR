@@ -15,9 +15,12 @@ class TinymceForm extends AbstractType
             ->add('Editeur', 'textarea', array(
                 'attr' => array(
                     'class' => 'tinymce',
-                    'data-theme' => 'bbcode' // Skip it if you want to use default theme
+                    'data-theme' => 'advanced' // simple, medium, bbcode, advanced
         )
-    ));
+    ))
+            ->add('token', 'hidden', array(
+            "mapped" => false,
+        ));
     }
     public function getName()
     {

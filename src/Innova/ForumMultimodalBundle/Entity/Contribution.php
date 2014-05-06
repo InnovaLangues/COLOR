@@ -59,6 +59,20 @@ class Contribution
     /**
      * @var string
      *
+     * @ORM\Column(name="lien", type="string", length=255)
+     */
+    private $lien;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="father", type="string", length=255)
+     */
+    private $father;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="user", type="string", length=255)
      */
     private $user;
@@ -186,6 +200,52 @@ class Contribution
     public function setExtension($extension)
     {
         $this->extension = $extension;
+
+        return $this;
+    }
+
+    /**
+     * Get lien
+     *
+     * @return string 
+     */
+    public function getLien()
+    {
+        return $this->lien;
+    }
+
+    /**
+     * Set lien
+     *
+     * @param string $lien
+     * @return Contribution
+     */
+    public function setLien($lien)
+    {
+        $this->lien = $lien;
+
+        return $this;
+    }
+
+    /**
+     * Get father
+     *
+     * @return string 
+     */
+    public function getFather()
+    {
+        return $this->father;
+    }
+
+    /**
+     * Set father
+     *
+     * @param string $father
+     * @return Contribution
+     */
+    public function setFather($father)
+    {
+        $this->father = $father;
 
         return $this;
     }

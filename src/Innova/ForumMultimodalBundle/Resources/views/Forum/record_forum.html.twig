@@ -8,9 +8,7 @@
 		<head>
 			<meta name="viewport" content="width=device-width,initial-scale=1">
 			<title>Audio Recorder</title>
-		    <script src="http://cwilso.github.io/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
-			<script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/audiodisplay.js') }}"></script>
-			<script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/recorder.js') }}"></script>
+			<script src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/js/mediaelement-and-player.min.js') }}"></script> 
 			<style>
 			body { 
 				display: flex;
@@ -68,10 +66,11 @@
 				</div>
 				<br />
 				<table>
+				<input type="hidden" id="pereoufilsoral" name="pereoufilsoral"/>
 					<tr class-"text-center">						
-						<button class="btn btn-success"  onclick="toggleRecording(this);">Enregistrer</button>
+						<button class="btn btn-success" id="enregistrer"  onclick="toggleRecording(this);">Enregistrer</button>
 						&nbsp;
-						<button class="btn btn-success" onclick="saveAudio();">S’écouter</button>							
+						<button class="btn btn-success" id="ecouter" onclick="saveAudio();">S’écouter</button>							
 					</tr>
 				</table>
 			</div>
@@ -83,3 +82,6 @@
     <button class="btn btn-primary" style="position: static; float: right;" onclick="Deposer();">Déposer</button>
     </div>
 	</div>
+	    <script>
+                $('audio').mediaelementplayer();
+            </script>

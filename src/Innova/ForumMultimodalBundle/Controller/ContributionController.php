@@ -16,49 +16,61 @@ class ContributionController extends Controller
   
   public function showContributionAction(Subject $subj)
   {
-        // selectionner les sons dans le dossier uploads
+        // tableau pour mettre le contenu de chaque contribution
         $tableauSons = array();
+        // tableau de contribution père
+        $tableauContributionFather = array();
+        // tableau pour compter le nombre de Contribution fils de chaque contribution 
+		$tableauCountContributionSon = array();
          //On crée le FormBuilder grâce à la méthode du contrôleur. Toujours sans entité
         $form2 = $this->createForm(new TinymceForm());
-        // $form3 = $this->createForm(new FileForm());
-
         //On récupère la requête
         $request = $this->getRequest();
         // l'id de sujet
-        // $id = $contribution->getSubject()->getId();
         $id = $subj->getId();
         // la consigne donner avec le sujet
-        // $consigne = $contribution->getSubject()->getConsigne();
         $consigne = $subj->getConsigne();
         // le sujet
-        // $subject = $contribution->getSubject()->getSujet();
         $subject = $subj->getSujet();
+        // debut remplissage tableau $tableauContributionFather
         $emContribution = $this->getDoctrine()
                            ->getManager()
                            ->getRepository('InnovaForumMultimodalBundle:Contribution');
         $listeContributions = $emContribution->findBy(array('subject' => $id));
-        $countContribution = count($listeContributions);
+         foreach($listeContributions as $cont)
+		        {
+		          // $cont est une instance de Contribution
+		        	if($cont->getFather() == "0")
+		        	{
+		                     array_push($tableauContributionFather,$cont); 
+		            }
+		        }
+		// fin remplissage tableau $tableauContributionFather
+        // le nombre de contribution de ce sujet
+        $countContribution = count($tableauContributionFather);
+        // debut remplissage tableau $tableauCountContributionSon
+	    // on recupere toutes les contributions
+	    $emCont = $this->getDoctrine()->getManager();
+	    $entitiesCont = $emCont->getRepository('InnovaForumMultimodalBundle:Contribution')->findAll();
+	    foreach($entitiesCont as $con)
+	        {
+	          // pour chaque contribution, on recupere son id
+	          $id = $con->getId();
+	          // on compte le nombre de contribution fils pour chaque contribution
+	          $emContribution = $this->getDoctrine()->getManager();
+	          $listeContributionsSon = $emContribution->getRepository('InnovaForumMultimodalBundle:Contribution')->findBy(array('father' => $id));
+	          $countContributionSon = count($listeContributionsSon);
+	          // on rajoute le noombre de contribution par sujet dans le tableau : tableauCountContribution
+	          array_push($tableauCountContributionSon,$countContributionSon);
+	        }
+	    // fin remplissage tableau $tableauCountContributionSon
         if($request->getMethod() == 'POST')
         {
             $form2->bind($request);
             //On vérifie que les valeurs entrées sont correctes
             if($form2->isValid())
             {
-                //On récupère la requête
-                $request = $this->getRequest();
-                // l'id de sujet
-                $id = $subj->getId();
-                // la consigne donner avec le sujet
-                $consigne = $subj->getConsigne();
-                // le sujet
-                $subject = $subj->getSujet();
-                // recuperer toutes les contributions d'un sujet
-                $emContribution = $this->getDoctrine()
-                                   ->getManager()
-                                   ->getRepository('InnovaForumMultimodalBundle:Contribution');
-                $listeContributions = $emContribution->findBy(array('subject' => $id));
-                // le nombre de contribution de ce sujet
-                $countContribution = count($listeContributions);
+            	$id = $subj->getId();
                 // une instance de l'entity Contribution
                 $contributionEntity = new Contribution();
                 // on met la date actuelle pour l'ajout d'une nouvelle contribution
@@ -69,11 +81,16 @@ class ContributionController extends Controller
                 $contributionEntity->setUser($user);
                 // on affecte l'extension
                 $contributionEntity->setExtension("null");
+                // on met le lien à null
+                $contributionEntity->setLien("null");
                 // on met l'heure actuelle pour l'ajout d'une novelle contribution
                 $contributionEntity->setTime(new \Datetime());
                 // cette contribution et de type texte
                 // la contribution de type oral est dans AjaxController
                 $contributionEntity->setType("texte");
+                // on recupere l'id de contribution pere
+                $pereoufils = $form2["token"]->getData();
+                $contributionEntity->setFather($pereoufils);
                 // recuperer le contenu de l'editeur
                 $contenuEditeur = $form2["Editeur"]->getData();
                 $data = $this->getRequest()->request->get('innova_forummultimodalbundle_TinymceForm');
@@ -91,42 +108,12 @@ class ContributionController extends Controller
                 // fin : enregistrer notre objet contribution dans la base de données
                 // on redirige vers la page de visualisation, ici vers notre premiere action de controller
                 return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $id)));
-            }
-                // $em = $this->getDoctrine()->getManager();
-                // // si c'est une contribution mere
-                // if($tokenId == 0)
-                // {
-                // //Puis on redirige vers la page de visualisation
-                //     if($choix=="oral")
-                //     {
-                //         // return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $id)));
-                //         return $this->render('InnovaForumMultimodalBundle:Forum:showContribution.html.twig', array('id' => $id, 'form' => $form->createView(),'listeContributions' => $listeContributions,'countContribution' => $countContribution,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
-                //     }
-                //     else if($choix=="texte")
-                //     {
-                      
-                //       return $this->redirect($this->generateUrl('innova_forum_multimodal_add_contribution_text', array('id' => $id, 'form' => $form2->createView(),'listeContributions' => $listeContributions,'countContribution' => $countContribution,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,)));
-                //       // le probleme de forward ==> il va garder le test sur le post de premier fonction
-                //       // par la suite dans la deuxieme methode il va garder la validiter de POST, quand il va essayer de valider le formulaire 
-                //       // il va pas trouver ce qu'il attend ==> merci Axel
-                //       // return $this->forward('InnovaForumMultimodalBundle:Contribution:addContribution', array('id' => $id));
-                //       // return $this->render('InnovaForumMultimodalBundle:Forum:addTextContribution.html.twig', array('form' => $form2->createView(),'id' => $id,'listeContributions' => $listeContributions,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
-                //     }
-                //     else if($choix=="fichier")
-                //     {
-                //       return $this->redirect($this->generateUrl('innova_forum_multimodal_add_contribution_file', array('id' => $id, 'form' => $form3->createView(),'listeContributions' => $listeContributions,'countContribution' => $countContribution,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,)));             
-                //     }
-                // }
-                // else
-                // {
-                //     echo "c'est une contribution fils";
-                // }
-            
+            }           
         }
         // À ce stade :
         // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
         // - Soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-        return $this->render('InnovaForumMultimodalBundle:Forum:choiceContribution.html.twig', array('id' => $id,'form2' => $form2->createView(),'listeContributions' => $listeContributions,'countContribution' => $countContribution,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
+        return $this->render('InnovaForumMultimodalBundle:Forum:choiceContribution.html.twig', array('id' => $id,'form2' => $form2->createView(),'listeContributions' => $tableauContributionFather,'tableauCountContributionSon' => $tableauCountContributionSon,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
   }
   public function addContributionFileAction(Subject $subj)
   {
@@ -134,78 +121,70 @@ class ContributionController extends Controller
         $request = $this->getRequest();
         if($request->getMethod() == 'POST')
         {
-        // 	$file = $request->files->get('upload');
-        // 	var_dump($file);
-        // 	var_dump($request->request->all());
-
-        // 	    	var_dump($request->files);
-        // exit();
-  		// $request = $this->container->get('request');
-        // l'id de sujet
-        $id = $subj->getId();
-        // la consigne donner avec le sujet
-        $consigne = $subj->getConsigne();
-        // le sujet
-        $subject = $subj->getSujet();
-        // recuperer toutes les contributions d'un sujet
-        $emContribution = $this->getDoctrine()
-                           ->getManager()
-                           ->getRepository('InnovaForumMultimodalBundle:Contribution');
-        $listeContributions = $emContribution->findBy(array('subject' => $id));
-        // le nombre de contribution de ce sujet
-        $countContribution = count($listeContributions);
-        // une instance de l'entity Contribution
-        $contributionEntity = new Contribution();
-        // on met la date actuelle pour l'ajout d'une nouvelle contribution
-        $contributionEntity->setDate(new \Datetime());
-        // on recupere l'objet user
-        $user = $this->get('security.context')->getToken()->getUser();
-        // on affecte l'objet user à la contribution
-        $contributionEntity->setUser($user);
-        // on met l'heure actuelle pour l'ajout d'une novelle contribution
-        $contributionEntity->setTime(new \Datetime());
-        // cette contribution et de type texte
-        // la contribution de type oral est dans AjaxController
-        // le dossier où on va mettre les fichiers uploadés
-        $dir = $this->get('kernel')->getRootDir().'/../web/uploads/files/';
-        $contributionEntity->setType("fichier");
-    	// $filename = "test.txt";
-        // on recupere l'extension
-        // $extension = pathinfo($filename, PATHINFO_EXTENSION);
-        // on affecte l'extension
-        // $contributionEntity->setExtension($extension);
-        // On garde le nom original du fichier de l'internaute
-        // $form['attachment']->getData()->getClientOriginalName());
-        // $name = "file".rand(1, 99999).$subject.".".$extension;
-        // mettre le fichier dans le bon dossier avec le bon nom
-        // $form['attachment']->getData()->move($dir, $name);
-        // $uploadDirectory = $dir.$name;
-  		foreach($request->files as $uploadedFile) {
-  			$filename = $uploadedFile->getClientOriginalName();
-  			$extension = pathinfo($filename, PATHINFO_EXTENSION);
-  			 $contributionEntity->setExtension($extension);
-  			  $name = "file".rand(1, 99999).$subject.".".$extension;
-		    $file = $uploadedFile->move($dir, $name);
-		}
-            
-        // move_uploaded_file($request->files, $uploadDirectory);
-        $pathFile = "uploads/files/".$name;
-        // attribuer le nom de fichier à notre attribut de l'entité contribution
-        $contributionEntity->setContents($pathFile);
-        // debut : attribuer l'objet subject à notre attribut de l'entité contribution
-        $emzou = $this->getDoctrine()->getManager();
-        $subjectObject = $emzou->getRepository('InnovaForumMultimodalBundle:Subject')->find($id);
-        $contributionEntity->setSubject($subjectObject);
-        // fin : attribuer l'objet subject à notre attribut de l'entité contribution
-        // debut : enregistrer notre objet contribution dans la base de données
-        $em2 = $this->getDoctrine()->getManager();
-        $em2->persist($contributionEntity);
-        $em2->flush();
-    }
+	        // l'id de sujet
+	        $id = $subj->getId();
+	        // la consigne donner avec le sujet
+	        $consigne = $subj->getConsigne();
+	        // le sujet
+	        $subject = $subj->getSujet();
+	        // recuperer toutes les contributions d'un sujet
+	        $emContribution = $this->getDoctrine()
+	                           ->getManager()
+	                           ->getRepository('InnovaForumMultimodalBundle:Contribution');
+	        $listeContributions = $emContribution->findBy(array('subject' => $id));
+	        // le nombre de contribution de ce sujet
+	        $countContribution = count($listeContributions);
+	        // une instance de l'entity Contribution
+	        $contributionEntity = new Contribution();
+	        // on met la date actuelle pour l'ajout d'une nouvelle contribution
+	        $contributionEntity->setDate(new \Datetime());
+	        // on recupere l'objet user
+	        $user = $this->get('security.context')->getToken()->getUser();
+	        // on affecte l'objet user à la contribution
+	        $contributionEntity->setUser($user);
+	        // on met l'heure actuelle pour l'ajout d'une novelle contribution
+	        $contributionEntity->setTime(new \Datetime());
+	        // cette contribution et de type texte
+	        // la contribution de type oral est dans AjaxController
+	        // le dossier où on va mettre les fichiers uploadés
+	        $dir = $this->get('kernel')->getRootDir().'/../web/uploads/files/';
+	        $contributionEntity->setType("fichier");
+	        $pereoufils = $request->request->get('pereoufils');
+	        $contributionEntity->setFather($pereoufils);
+	  		foreach($request->files as $uploadedFile) 
+	  		{
+	  			$filename = $uploadedFile->getClientOriginalName();
+	  			$extension = pathinfo($filename, PATHINFO_EXTENSION);
+	  			$contributionEntity->setExtension($extension);
+	  			$name = "file".rand(1, 99999).$subject.".".$extension;
+			    $file = $uploadedFile->move($dir, $name);
+			}
+	        if($request->request->get('lien') != "")
+	        {
+	            $lien = $request->request->get('lien');
+	            $contributionEntity->setLien($lien);
+	        }
+	        else
+	        {
+	            // on met le lien à null
+	            $contributionEntity->setLien("null");
+	        }
+	        $pathFile = "uploads/files/".$name;
+	        // attribuer le nom de fichier à notre attribut de l'entité contribution
+	        $contributionEntity->setContents($pathFile);
+	        // debut : attribuer l'objet subject à notre attribut de l'entité contribution
+	        $emzou = $this->getDoctrine()->getManager();
+	        $subjectObject = $emzou->getRepository('InnovaForumMultimodalBundle:Subject')->find($id);
+	        $contributionEntity->setSubject($subjectObject);
+	        // fin : attribuer l'objet subject à notre attribut de l'entité contribution
+	        // debut : enregistrer notre objet contribution dans la base de données
+	        $em2 = $this->getDoctrine()->getManager();
+	        $em2->persist($contributionEntity);
+	        $em2->flush();
+    	}
         // fin : enregistrer notre objet contribution dans la base de données
         // on redirige vers la page de visualisation, ici vers notre premiere action de controller
 		return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $id)));
-    	// return $this->render('InnovaForumMultimodalBundle:Forum:addFileContribution.html.twig', array('id' => $id,'listeContributions' => $listeContributions,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
   }
   public function deleteContributionAction()
   {
