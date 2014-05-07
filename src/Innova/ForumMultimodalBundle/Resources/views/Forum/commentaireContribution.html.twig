@@ -1,67 +1,50 @@
-<h4>Film - {{subject}}</h4>
-				<br />
+{% extends "InnovaForumMultimodalBundle::layout.html.twig" %}
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block bloc1 %}
+			<br />
 				<table class="table table-striped table-bordered">
-					<textarea disabled class="txtConsigne" rows="5">{{consigne}}</textarea>
+					{% if type == "oral" %}
+								  <audio src="{{asset(contents)}}" controls></audio></span><br />
+					{% elseif type == "fichier" %}
+						{% if (extension == "png") or (extension == "jpg") or (extension == "jpeg") or (extension == "gif") %}
+							<img src="{{ asset(contents)}}" /><br />
+						{% elseif (extension == "txt") or (extension == "pdf") %}
+							{% if lien == "null" %}
+								<a href="{{asset(contents)}}" target=_blank >Cliquer ici pour visualiser le fichier</a>
+							{% else %}
+								  <a href="{{asset(contents)}}" target=_blank >{{lien}}</a>
+							{% endif %}
+						{% elseif (extension == "mp4") or (extension == "avi") or (extension == "ogv") or (extension == "webm") %}
+							<video width="500" height="400" src="{{asset(contents)}}" controls></video></span><br />
+						{% endif %}
+					{% else %}
+						  {{contents | raw}}
+					{% endif %}
 				</table>
 				<br />
 				<table>
 					<tr>
 						<td>
-							<form action="{{ path('innova_forum_multimodal_homepage')}}" method="post">
+							<form action="{{ path('innova_forum_multimodal_voir_contribution',{ 'id': subject.id })}}" method="post">
 								<input type="submit" class="btn btn-danger" name="ajout" style="position: static; float: right;" value="Retour"/>
 							</form>
 						</td>
-						<td>
-							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" onclick="javascript:afficher_cacher('FormulaireChoix',0,'haut');">Ajouter une contribution</a> 
-						</td>
-						<td>
-							<a class="btn btn-danger">Tout lire</a> 
-						</td>
 					</tr>
-						<tr>
-							<td colspan="3">
-							<br /><br />
-							<div id="forFormChoix_0">
-								<div id="FormulaireChoix" class="well">
-									<h6><font color="blue">Ajouter une contribution - Choix du type de contribution</font></h6>
-								        <table> 
-								        <div class="row">
-									                <div class="span4"> 
-								       					 <a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#Record" >Enregistrement audio</a>
-								       				</div>
-								       	</div>
-								       	<br />
-								       	<div class="row">
-									                <div class="span4"> 
-								       					 <a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#texte" >Edition texte</a>
-								       				</div>
-								       	</div>
-								       	<br />
-								       	<div class="row">
-									                <div class="span4">  
-														<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#file">Dêpot fichier</a>    
-													</div>
-								       	</div> 
-								        </table>
-								</div>
-							</div>
-							</td>
-						
-						</tr>
 				</table>
 				{% if countContribution < 2 %}
-				  <h4>{{countContribution}} réponse</h4><br />
+				  <h4>{{countContribution}} commentaire</h4><br />
 				{% else %}
-				  <h4>{{countContribution}} réponses</h4><br />
+				  <h4>{{countContribution}} commentaires</h4><br />
 				{% endif %}
 				<table class="table table-striped table-bordered">
 					<tr>
 						<th style="width: 20%; text-align: center;"></th>
 						<th style="width: 20%; text-align: center;">Profil</th>
-						<th style="width: 30%; text-align: center;">Contribution</th>
-						<th style="width: 30%; text-align: center;">Commentaire</th>
+						<th style="width: 40%; text-align: center;">Commentaire</th>
 					</tr>
-					{% set compteur = 0 %}
 					{% for sons in listeContributions %}
 					<tr>
 						<td>
@@ -96,49 +79,8 @@
 									  {{sons.contents | raw}}
 								{% endif %}
 						</td>
-						<td>
-							<br />
-							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="{{sons.id}}" onclick="javascript:afficher_cacher('FormulaireChoix',{{sons.id}},'rien');">Réagir</a> 
-							<span style="font-weight: bold; color: #1290D0;"> 
-							{% if tableauCountContributionSon[compteur] < 2 %}
-							  {{tableauCountContributionSon[compteur] }} commentaire
-							{% else %}
-							  {{tableauCountContributionSon[compteur] }} commentaires
-							{% endif %}
-
-							</span>
-						</td>
 					</tr>
-					<tr>
-						<td>
-						</td>
-						<td>
-						</td>
-						<td>
-						</td>
-						<td>
-							<div id="forFormChoix_{{sons.id}}">
-								
-							</div>
-						</td>
-					</tr>
-					{% set compteur = compteur + 1 %}
 					{% endfor %}
 
 				</table>
-				<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" style="position: static; float: left;" onclick="javascript:afficher_cacher('FormulaireChoix',0,'bas');">+</a> 
-				<table>
-					<tr>
-						<td colspan="3">
-						<br /><br />
-							<div id="forFormChoix_bas">
-										
-							</div>
-						</td>
-					</tr>
-				</table>
-				<script type="text/javascript">
-		        //<!--
-			        afficher_cacher('FormulaireChoix',0,'rien');
-		        //-->
-		        </script>
+{% endblock %}
