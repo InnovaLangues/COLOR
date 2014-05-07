@@ -101,9 +101,9 @@
 							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="{{sons.id}}" onclick="javascript:afficher_cacher('FormulaireChoix',{{sons.id}},'rien');">Réagir</a> 
 							<span style="font-weight: bold; color: #1290D0;"> 
 							{% if tableauCountContributionSon[compteur] < 2 %}
-							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[compteur] }} commentaire </a>
+							  {{tableauCountContributionSon[compteur] }} commentaire
 							{% else %}
-							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[compteur] }} commentaires </a>
+							  {{tableauCountContributionSon[compteur] }} commentaires
 							{% endif %}
 
 							</span>

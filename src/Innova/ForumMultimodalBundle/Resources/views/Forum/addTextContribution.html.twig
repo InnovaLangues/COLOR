@@ -1,37 +1,3 @@
-{# {% extends "InnovaForumMultimodalBundle::layout.html.twig" %}
-
-{% block title %}
-  Accueil - {{ parent() }}
-{% endblock %}
-
-{% block bloc1 %}
-<input type="hidden" id="idsujet" value="{{ id }}"/>
-<br/><br/>
-<div class="row">
-	<div class="span2">
-	</div>
-	<div class="span7">
-		<div class="well">
-			<form action="" method="post" {{ form_enctype(form) }}>
-	            {{ form_widget(form) }}
-	            <br />
-	            <input type="submit" value="Valider" class="btn btn-primary" />
-	         </form>
-		</div>
-	</div>
-</div>
-<br/><br/> 
-<table>
-	<tr>
-		<td>
-			<form action="{{ path('innova_forum_multimodal_homepage')}}" method="post">
-				<input type="submit" class="btn btn-danger" name="retour" style="position: static; float: right;" value="Retour"/>
-			</form>
-		</td>
-	</tr>
-</table>
-	{{ tinymce_init() }}
-{% endblock %} #}
 <script>
 console.log("test");
 function messageFlashText(x)
@@ -53,7 +19,6 @@ function messageFlashText(x)
     }
   }
 </script>
-<input type="hidden" id="idsujet" value="{{ id }}"/>
 <div class="modal hide fade" id="texte">
 	  <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
 	    <h5>Ajouter une contribution – Edition texte</h5>
