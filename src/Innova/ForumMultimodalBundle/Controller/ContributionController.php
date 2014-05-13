@@ -22,6 +22,7 @@ class ContributionController extends Controller
         $tableauContributionFather = array();
         // tableau pour compter le nombre de Contribution fils de chaque contribution 
 		$tableauCountContributionSon = array();
+		// tableau pour mettre les id de chaque contribution
 		$tableauIdContribution = array();
          //On crée le FormBuilder grâce à la méthode du contrôleur. Toujours sans entité
         $form2 = $this->createForm(new TinymceForm());
@@ -219,19 +220,22 @@ class ContributionController extends Controller
                            ->getManager()
                            ->getRepository('InnovaForumMultimodalBundle:Contribution');
         $listeContributions = $emContribution->findBy(array('father' => $id));
-		// fin remplissage tableau $tableauContributionFather
         // le nombre de contribution de ce sujet
         $countContribution = count($listeContributions);
-        // print_r($id);
-        // print_r($contents);
-        // print_r($extension);
-        // // print_r($listeContributions);
-        // print_r($countContribution);
-        // exit();          
-        // À ce stade :
-        // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - Soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
         return $this->render('InnovaForumMultimodalBundle:Forum:commentaireContribution.html.twig', array('id' => $id,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
+  }
+  public function AddCommentaireAction(Contribution $contri)
+  {
+  	//On récupère la requête
+    $request = $this->getRequest();
+    if($request->getMethod() == 'POST')
+    {
+    	print_r($request->request->get('editeur'));
+    	exit();
+    }
+
+  	// return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
+  	return new Response("Hello World !");
   }
   public function deleteContributionAction()
   {
