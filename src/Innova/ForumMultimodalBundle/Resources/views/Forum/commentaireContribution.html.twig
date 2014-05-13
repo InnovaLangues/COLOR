@@ -4,6 +4,50 @@
 {% endblock %}
 
 {% block bloc1 %}
+{% include "InnovaForumMultimodalBundle:Forum:addFileContribution.html.twig" %}
+{% include "InnovaForumMultimodalBundle:Forum:record_forum.html.twig" %}
+<script>
+function afficher_cacher(id,x,y)
+    {
+  // 		var contributionTexte = document.getElementById("innova_forummultimodalbundle_TinymceForm_token");
+		// contributionTexte.value = x;
+		// console.log(contributionTexte);
+		// var contributionFile = document.getElementById("pereoufils");
+		// contributionFile.value = x;
+		// console.log(contributionFile);
+		// var contributionOral = document.getElementById("pereoufilsoral");
+		// contributionOral.value = x;
+		// console.log(contributionOral);
+		// document.getElementById(id).style.visibility="hidden";
+		if(y == "bas")
+		{
+			var idDivFormChoix ="forFormChoix_bas";
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			console.log(DivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+
+		}
+		else
+		{
+			var div = document.createElement('div');
+			div.setAttribute('id', 'forFormChoix_haut');
+			var td = document.getElementById("tdChoix");
+			td.appendChild( div );
+			var idDivFormChoix ="forFormChoix_haut";
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+		}
+        if(document.getElementById(id).style.visibility=="hidden")
+        {
+            document.getElementById(id).style.visibility="visible";
+        }
+        else
+        {
+            document.getElementById(id).style.visibility="hidden";
+        }
+        return true;
+    }
+</script>
 			<br />
 			<table class="table table-striped table-bordered">
 					<div class="alert-success">Ajouter un commentaire à :</div>
@@ -53,7 +97,14 @@
 							</form>
 						</td>
 						<td>
-							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" onclick="javascript:afficher_cacher('FormulaireChoix',0,'haut');">Ajouter</a> 
+							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" onclick="javascript:afficher_cacher('FormulaireChoix',{{id}},'haut');">Ajouter</a> 
+						</td>
+					</tr>
+					</table>
+					<table>
+					<tr>
+						<td colspan="3" id="tdChoix">
+						<br />
 						</td>
 					</tr>
 					
@@ -96,5 +147,42 @@
 					{% endfor %}
 
 				</table>
-				<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" style="position: static; float: left;" onclick="javascript:afficher_cacher('FormulaireChoix',0,'bas');">Ajouter</a> 
+				<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" style="position: static; float: left;" onclick="javascript:afficher_cacher('FormulaireChoix',{{id}},'bas');">Ajouter</a> 
+				<table>
+					<tr>
+						<td colspan="3">
+						<br /><br />
+							<div id="forFormChoix_bas">
+							<div id="FormulaireChoix" class="well">
+									<h6><font color="blue">Ajouter une contribution - Choix du type de contribution</font></h6>
+								        <table> 
+								        <div class="row">
+									                <div class="span4"> 
+								       					 <a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#Record" >Enregistrement audio</a>
+								       				</div>
+								       	</div>
+								       	<br />
+								       	<div class="row">
+									                <div class="span4"> 
+								       					 <a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#texte" >Edition texte</a>
+								       				</div>
+								       	</div>
+								       	<br />
+								       	<div class="row">
+									                <div class="span4">  
+														<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#file">Dêpot fichier</a>    
+													</div>
+								       	</div> 
+								        </table>
+								</div>
+										
+							</div>
+						</td>
+					</tr>
+				</table>
+				<script type="text/javascript">
+		        //<!--
+			        afficher_cacher('FormulaireChoix',0,'bas');
+		        //-->
+		        </script>
 {% endblock %}
