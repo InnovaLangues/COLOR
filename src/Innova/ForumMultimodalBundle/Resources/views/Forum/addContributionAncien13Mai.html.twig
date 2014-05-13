@@ -34,8 +34,8 @@
 					<tr>
 						<th style="width: 20%; text-align: center;"></th>
 						<th style="width: 20%; text-align: center;">Profil</th>
-						<th style="width: 50%; text-align: center;">Contribution</th>
-						<th style="width: 10%; text-align: center;">Commentaire</th>
+						<th style="width: 30%; text-align: center;">Contribution</th>
+						<th style="width: 30%; text-align: center;">Commentaire</th>
 					</tr>
 					{% set compteur = 0 %}
 					{% for sons in listeContributions %}
@@ -52,18 +52,6 @@
 						<td>
 							<span style="font-weight: bold; color: #1290D0;">Déposer par {{sons.user}}</span><br />
 							<span style="font-size: x-small;">Le {{sons.date|date("m/d/Y")}} à {{sons.time|date("H:i:s")}}</span><br />
-							<span style="font-size: x-small;"> 
-							{% if tableauCountContributionSon[sons.id] < 2 %}
-							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaire </a>
-							{% else %}
-							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaires </a>
-							{% endif %}
-
-							</span>
-							<br />
-							<span style="font-size: x-small;"> 
-								<a href="#">y écoutes </a>
-							</span>
 						</td>
 						<td>
 								{% if sons.type == "oral" %}
@@ -88,7 +76,14 @@
 						<td>
 							<br />
 							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="{{sons.id}}" onclick="javascript:afficher_cacher('FormulaireChoix',{{sons.id}},'rien');">Réagir</a> 
-							
+							<span style="font-weight: bold; color: #1290D0;"> 
+							{% if tableauCountContributionSon[sons.id] < 2 %}
+							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaire </a>
+							{% else %}
+							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaires </a>
+							{% endif %}
+
+							</span>
 						</td>
 					</tr>
 					<tr>

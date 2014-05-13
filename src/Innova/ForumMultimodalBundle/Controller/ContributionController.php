@@ -22,6 +22,7 @@ class ContributionController extends Controller
         $tableauContributionFather = array();
         // tableau pour compter le nombre de Contribution fils de chaque contribution 
 		$tableauCountContributionSon = array();
+		$tableauIdContribution = array();
          //On crée le FormBuilder grâce à la méthode du contrôleur. Toujours sans entité
         $form2 = $this->createForm(new TinymceForm());
         //On récupère la requête
@@ -56,13 +57,20 @@ class ContributionController extends Controller
 	        {
 	          // pour chaque contribution, on recupere son id
 	          $idCon = $con->getId();
+	          // echo $idCon."*****";
 	          // on compte le nombre de contribution fils pour chaque contribution
 	          $emContribution = $this->getDoctrine()->getManager();
 	          $listeContributionsSon = $emContribution->getRepository('InnovaForumMultimodalBundle:Contribution')->findBy(array('father' => $idCon));
 	          $countContributionSon = count($listeContributionsSon);
 	          // on rajoute le noombre de contribution par sujet dans le tableau : tableauCountContribution
 	          array_push($tableauCountContributionSon,$countContributionSon);
+
+	          array_push($tableauIdContribution,$idCon);
+	          // echo $idCon."*****";
+	          // echo $idCon."==>".$countContributionSon."****";
 	        }
+	        // combiner les deux tableaux tableauIdContribution et tableauCountContributionSon
+	        $tabCombine = array_combine($tableauIdContribution, $tableauCountContributionSon);
 	    // fin remplissage tableau $tableauCountContributionSon
         if($request->getMethod() == 'POST')
         {
@@ -113,7 +121,7 @@ class ContributionController extends Controller
         // À ce stade :
         // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
         // - Soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-        return $this->render('InnovaForumMultimodalBundle:Forum:choiceContribution.html.twig', array('id' => $id,'form2' => $form2->createView(),'listeContributions' => $tableauContributionFather,'tableauCountContributionSon' => $tableauCountContributionSon,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
+        return $this->render('InnovaForumMultimodalBundle:Forum:choiceContribution.html.twig', array('id' => $id,'form2' => $form2->createView(),'listeContributions' => $tableauContributionFather,'tableauCountContributionSon' => $tabCombine,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
   }
   public function addContributionFileAction(Subject $subj)
   {
@@ -200,6 +208,12 @@ class ContributionController extends Controller
         $type = $contri->getType();
         // subject de la contribution
         $subject = $contri->getSubject();
+        // user de la contribution
+        $user = $contri->getUser();
+        // date de la contribution
+        $date = $contri->getDate();
+        // time de la contribution
+        $time = $contri->getTime();
         // debut remplissage tableau $tableauContributionFather
         $emContribution = $this->getDoctrine()
                            ->getManager()
@@ -217,7 +231,7 @@ class ContributionController extends Controller
         // À ce stade :
         // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
         // - Soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-        return $this->render('InnovaForumMultimodalBundle:Forum:commentaireContribution.html.twig', array('id' => $id,'contents' => $contents,'subject' => $subject,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
+        return $this->render('InnovaForumMultimodalBundle:Forum:commentaireContribution.html.twig', array('id' => $id,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
   }
   public function deleteContributionAction()
   {
