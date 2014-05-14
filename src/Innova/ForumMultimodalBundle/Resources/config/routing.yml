@@ -10,9 +10,16 @@ innova_forum_multimodal_add_contribution_file:
 
 innova_forum_multimodal_add_commentaire_text:
     path:  /forum/commentaire/add/text/{id}
-    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:AddCommentaire}
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:AddCommentaireText}
     requirements:
         id:  \d+
+
+innova_forum_multimodal_add_commentaire_file:
+    path:  /forum/commentaire/add/file/{id}
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:AddCommentaireFile}
+    requirements:
+        id:  \d+
+
 test:
     resource: "@InnovaForumMultimodalBundle/Controller/"
     type:       annotation

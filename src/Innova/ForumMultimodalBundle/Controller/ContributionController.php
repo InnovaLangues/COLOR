@@ -222,20 +222,107 @@ class ContributionController extends Controller
         $listeContributions = $emContribution->findBy(array('father' => $id));
         // le nombre de contribution de ce sujet
         $countContribution = count($listeContributions);
-        return $this->render('InnovaForumMultimodalBundle:Forum:commentaireContribution.html.twig', array('id' => $id,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
+        $em = $this->getDoctrine()->getManager();
+        $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneByFather($id);
+        $idSubjectContribution = $contrib->getSubject()->getId();
+        return $this->render('InnovaForumMultimodalBundle:Forum:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
   }
-  public function AddCommentaireAction(Contribution $contri)
+  public function AddCommentaireTextAction(Contribution $contri)
   {
   	//On récupère la requête
     $request = $this->getRequest();
     if($request->getMethod() == 'POST')
     {
-    	print_r($request->request->get('editeur'));
-    	exit();
+    	$contributionEntity = new Contribution();
+    	// l'id de sujet
+        $id = $contri->getId();
+    	// on met la date actuelle pour l'ajout d'une nouvelle contribution
+        $contributionEntity->setDate(new \Datetime());
+        // on recupere l'objet user
+        $user = $this->get('security.context')->getToken()->getUser();
+        // on affecte l'objet user à la contribution
+        $contributionEntity->setUser($user);
+        // on affecte l'extension
+        $contributionEntity->setExtension("null");
+        // on met le lien à null
+        $contributionEntity->setLien("null");
+        // on met l'heure actuelle pour l'ajout d'une novelle contribution
+        $contributionEntity->setTime(new \Datetime());
+        // contenu
+        $contributionEntity->setContents($request->request->get('editeur'));
+        // type texte
+        $contributionEntity->setType("texte");
+        // id father
+        $contributionEntity->setFather($request->request->get('idFather'));
+        // id subjectObject
+        $em = $this->getDoctrine()->getManager();
+    	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneByFather($request->request->get('idFather'));
+        $contributionEntity->setSubject($contrib->getSubject());
+        // enregistrer notre objet dans la base des données
+        $em2 = $this->getDoctrine()->getManager();
+        $em2->persist($contributionEntity);
+        $em2->flush();
     }
-
-  	// return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
-  	return new Response("Hello World !");
+  	 // on redirige vers la page de visualisation, ici vers showCommentaireAction
+	return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_commentaire', array('id' => $id)));
+  	// return new Response("Hello World !");
+  }
+  public function AddCommentaireFileAction(Contribution $contri)
+  {
+  	//On récupère la requête
+    $request = $this->getRequest();
+    if($request->getMethod() == 'POST')
+    {
+    	$contributionEntity = new Contribution();
+    	// subjectObject
+        $em = $this->getDoctrine()->getManager();
+    	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneByFather($request->request->get('pereoufils'));
+        $contributionEntity->setSubject($contrib->getSubject());
+        $subject = $contrib->getSubject()->getSujet();
+    	// l'id de sujet
+        $id = $contri->getId();
+    	// on met la date actuelle pour l'ajout d'une nouvelle contribution
+        $contributionEntity->setDate(new \Datetime());
+        // on recupere l'objet user
+        $user = $this->get('security.context')->getToken()->getUser();
+        // on affecte l'objet user à la contribution
+        $contributionEntity->setUser($user);
+     	// le dossier où on va mettre les fichiers uploadés
+        $dir = $this->get('kernel')->getRootDir().'/../web/uploads/files/';
+        $contributionEntity->setType("fichier");
+        $pereoufils = $request->request->get('pereoufils');
+        $contributionEntity->setFather($pereoufils);
+  		foreach($request->files as $uploadedFile) 
+  		{
+  			$filename = $uploadedFile->getClientOriginalName();
+  			$extension = pathinfo($filename, PATHINFO_EXTENSION);
+  			$contributionEntity->setExtension($extension);
+  			$name = "file".rand(1, 99999).$subject.".".$extension;
+		    $file = $uploadedFile->move($dir, $name);
+		}
+        if($request->request->get('lien') != "")
+        {
+            $lien = $request->request->get('lien');
+            $contributionEntity->setLien($lien);
+        }
+        else
+        {
+            // on met le lien à null
+            $contributionEntity->setLien("null");
+        }
+        $pathFile = "uploads/files/".$name;
+        // attribuer le nom de fichier à notre attribut de l'entité contribution
+        $contributionEntity->setContents($pathFile);
+        // on met l'heure actuelle pour l'ajout d'une novelle contribution
+        $contributionEntity->setTime(new \Datetime());
+        // enregistrer notre objet dans la base des données
+        $em2 = $this->getDoctrine()->getManager();
+        $em2->persist($contributionEntity);
+        $em2->flush();
+    }
+  	 // on redirige vers la page de visualisation, ici vers showCommentaireAction
+	return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_commentaire', array('id' => $id)));
+  	// return new Response("Hello World !");
   }
   public function deleteContributionAction()
   {
