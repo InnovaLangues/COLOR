@@ -73,6 +73,13 @@ class Contribution
     /**
      * @var string
      *
+     * @ORM\Column(name="listen", type="string", length=255)
+     */
+    private $listen;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="user", type="string", length=255)
      */
     private $user;
@@ -246,6 +253,29 @@ class Contribution
     public function setFather($father)
     {
         $this->father = $father;
+
+        return $this;
+    }
+
+    /**
+     * Get listen
+     *
+     * @return string 
+     */
+    public function getListen()
+    {
+        return $this->listen;
+    }
+
+    /**
+     * Set listen
+     *
+     * @param string $listen
+     * @return Contribution
+     */
+    public function setListen($listen)
+    {
+        $this->listen = $listen;
 
         return $this;
     }

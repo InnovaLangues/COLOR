@@ -62,13 +62,17 @@
 							</span>
 							<br />
 							<span style="font-size: x-small;"> 
-								<a href="#">y écoutes </a>
+								{% if sons.listen < 2 %}
+									<a href="#">{{sons.listen}} écoute </a>
+								{% else %}
+									<a href="#">{{sons.listen}} écoutes </a>
+								{% endif %}
 							</span>
 						</td>
 						<td>
 								{% if sons.type == "oral" %}
-								  <audio src="{{asset(sons.contents)}}" id="audioBalise"></audio></span><br />
-								  <button class="btn btn-warning btn-small" id="btnPlayPause" onclick="playPause();">Play</button>
+								  <audio src="{{asset(sons.contents)}}" id="audioBalise_{{sons.id}}"></audio></span><br />
+								  <button class="btn btn-warning btn-small" id="btnPlayPause_{{sons.id}}" onclick="playPause({{sons.id}});">Play</button>
 								{% elseif sons.type == "fichier" %}
 									{% if (sons.extension == "png") or (sons.extension == "jpg") or (sons.extension == "jpeg") or (sons.extension == "gif") %}
 										<img src="{{ asset(sons.contents)}}" /><br />

@@ -50,3 +50,9 @@ innova_forum_multimodal_upload:
     defaults: { _controller:InnovaForumMultimodalBundle:Ajax:upload}
     options:
         expose: true
+
+innova_forum_multimodal_listen:
+    pattern:  /forum/contribution/listen
+    defaults: { _controller:InnovaForumMultimodalBundle:Ajax:listen}
+    options:
+        expose: true

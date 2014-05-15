@@ -28,6 +28,7 @@ class AjaxController extends Controller
     	$contribution->setLien("null");
     	$contribution->setTime(new \Datetime());
     	$contribution->setType("oral");
+    	$contribution->SetListen(0);
     	$file = "uploads/".$_POST["audio-filename"];
     	$contribution->setContents($file);
     	$contribution->setSubject($subject);
@@ -51,6 +52,24 @@ class AjaxController extends Controller
 		    }
 		}
 
+
+	  }
+
+	  /**
+	 * @Route("/forum/contribution/Listen", name="innova_forum_multimodal_listen", options={"expose"=true})
+	 */
+	  public function listenAction()
+	  {
+	  		$listen = $_POST["listen"];
+	  		$idContribution = $_POST["idContribution"];
+			$em = $this->getDoctrine()->getManager();
+	        $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($idContribution);
+	        $listenContrib = $contrib->getListen();
+	        $updateListen = $listenContrib + $listen;
+	        $contrib->SetListen($updateListen);
+
+	  		$response = "updateListen => ".$updateListen." listenContrib => ".$listenContrib;
+	  		return new Response($response);
 
 	  }
 }

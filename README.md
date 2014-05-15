@@ -4,8 +4,8 @@
 * sudo chmod 777 app/logs
 * sudo rm -rf app/cache/*
 * sudo rm -rf app/logs/*
-* sudo sudo php app/console cache:clear --env=prod
-* sudo sudo php update composer.phar
+* sudo php app/console cache:clear --env=prod
+* sudo php update composer.phar
 * sudo php app/console assets:install --symlink
 * sudo php app/console assetic:dump
 * sudo php app/console doctrine:database:create

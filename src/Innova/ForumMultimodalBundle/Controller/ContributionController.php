@@ -97,6 +97,8 @@ class ContributionController extends Controller
                 // cette contribution et de type texte
                 // la contribution de type oral est dans AjaxController
                 $contributionEntity->setType("texte");
+                // le nombre d'ecoute par default est à zero
+                $contributionEntity->SetListen(0);
                 // on recupere l'id de contribution pere
                 $pereoufils = $form2["token"]->getData();
                 $contributionEntity->setFather($pereoufils);
@@ -185,6 +187,7 @@ class ContributionController extends Controller
 	        $emzou = $this->getDoctrine()->getManager();
 	        $subjectObject = $emzou->getRepository('InnovaForumMultimodalBundle:Subject')->find($id);
 	        $contributionEntity->setSubject($subjectObject);
+	        $contributionEntity->SetListen(0);
 	        // fin : attribuer l'objet subject à notre attribut de l'entité contribution
 	        // debut : enregistrer notre objet contribution dans la base de données
 	        $em2 = $this->getDoctrine()->getManager();
@@ -223,7 +226,7 @@ class ContributionController extends Controller
         // le nombre de contribution de ce sujet
         $countContribution = count($listeContributions);
         $em = $this->getDoctrine()->getManager();
-        $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneByFather($id);
+        $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($id);
         $idSubjectContribution = $contrib->getSubject()->getId();
         return $this->render('InnovaForumMultimodalBundle:Forum:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
   }
