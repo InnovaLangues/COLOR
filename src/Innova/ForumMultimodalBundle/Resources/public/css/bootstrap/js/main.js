@@ -25,6 +25,8 @@ var canvasWidth, canvasHeight;
 var recIndex = 0;
 var cheminSave=path+"";
 document.getElementById("ecouter").disabled = true;
+document.getElementById("deposer").disabled = true;
+document.getElementById("annuler").disabled = true;
 
 /* Partie chargement image pour enregistrement*/
 // le probleme ici qu'il ne trouve pas cette element chargement dans la page
@@ -81,6 +83,8 @@ var fileName;
 function saveAudio() {
     // audioRecorder.exportMP3( doneEncoding );
     document.getElementById("ecouter").disabled = false;
+    document.getElementById("deposer").disabled = false;
+    document.getElementById("annuler").disabled = false;
     audioRecorder.exportWAV( doneEncoding );
     affichageCompteur.style.visibility = "hidden";
     chargement2.style.visibility = "hidden";
@@ -90,6 +94,8 @@ function saveAudio() {
 function listen(stream) {
         /* Partie pour declarer la balise avec js */
         document.getElementById("ecouter").disabled = false;
+        document.getElementById("deposer").disabled = false;
+        document.getElementById("annuler").disabled = false;
         audio.style.visibility = "visible";
         MsgEnregistrement.innerHTML = "";
         totale.innerHTML = "";
@@ -160,6 +166,8 @@ function toggleRecording( e ) {
     audio.style.visibility = "hidden";
     document.getElementById("enregistrer").innerHTML =  "Enregistrer";
     document.getElementById("ecouter").disabled = false;
+    document.getElementById("deposer").disabled = false;
+    document.getElementById("annuler").disabled = false;
     if (e.classList.contains("recording")) {
         // stop recording
         audioRecorder.stop();
@@ -174,6 +182,8 @@ function toggleRecording( e ) {
 
     } else {
         document.getElementById("ecouter").disabled = true;
+        document.getElementById("deposer").disabled = true;
+        document.getElementById("annuler").disabled = true;
           document.getElementById("enregistrer").innerHTML = "Stop";
             MsgEnregistrement.innerHTML = "";
             totale.innerHTML = "";

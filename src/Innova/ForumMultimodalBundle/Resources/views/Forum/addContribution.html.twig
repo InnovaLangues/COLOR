@@ -39,7 +39,7 @@
 					</tr>
 					{% set compteur = 0 %}
 					{% for sons in listeContributions %}
-					<tr>
+					<tr  id="monAncre">
 						<td>
 							{% if sons.type == "oral" %}
 								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/oral.png') }}" >
