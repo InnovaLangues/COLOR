@@ -24,6 +24,7 @@
     		pathRouteAjaxListen=Routing.generate('innova_forum_multimodal_listen');
 		    console.log("pathRouteAjax "+pathRouteAjaxListen);
 		    xhrListen(pathRouteAjaxListen, formData, function (reponseListen) {
+		    	location.reload();
 		    	console.log("reponse : "+reponseListen);
 	    	});
 		}

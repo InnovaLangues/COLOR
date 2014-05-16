@@ -67,6 +67,8 @@ class AjaxController extends Controller
 	        $listenContrib = $contrib->getListen();
 	        $updateListen = $listenContrib + $listen;
 	        $contrib->SetListen($updateListen);
+	        $em->persist($contrib);
+            $em->flush();
 
 	  		$response = "updateListen => ".$updateListen." listenContrib => ".$listenContrib;
 	  		return new Response($response);

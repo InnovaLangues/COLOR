@@ -257,9 +257,11 @@ class ContributionController extends Controller
         $contributionEntity->setType("texte");
         // id father
         $contributionEntity->setFather($request->request->get('idFather'));
+        // le nombre d'ecoute par default est à zero
+        $contributionEntity->SetListen(0);
         // id subjectObject
         $em = $this->getDoctrine()->getManager();
-    	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneByFather($request->request->get('idFather'));
+    	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($request->request->get('idFather'));
         $contributionEntity->setSubject($contrib->getSubject());
         // enregistrer notre objet dans la base des données
         $em2 = $this->getDoctrine()->getManager();
@@ -279,7 +281,7 @@ class ContributionController extends Controller
     	$contributionEntity = new Contribution();
     	// subjectObject
         $em = $this->getDoctrine()->getManager();
-    	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneByFather($request->request->get('pereoufils'));
+    	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($request->request->get('pereoufils'));
         $contributionEntity->setSubject($contrib->getSubject());
         $subject = $contrib->getSubject()->getSujet();
     	// l'id de sujet
@@ -318,6 +320,8 @@ class ContributionController extends Controller
         $contributionEntity->setContents($pathFile);
         // on met l'heure actuelle pour l'ajout d'une novelle contribution
         $contributionEntity->setTime(new \Datetime());
+        // le nombre d'ecoute par default est à zero
+        $contributionEntity->SetListen(0);
         // enregistrer notre objet dans la base des données
         $em2 = $this->getDoctrine()->getManager();
         $em2->persist($contributionEntity);

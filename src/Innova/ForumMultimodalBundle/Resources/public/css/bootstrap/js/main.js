@@ -132,6 +132,7 @@ function PostBlob(blob, fileName) {
         if(fileURL)
         {
             transfert.innerHTML = "Votre contribution a bien été déposée dans le Forum !!";
+            location.reload();
             transfert.style.visibility = "visible";
             chargement2.style.visibility = "hidden";
         }
