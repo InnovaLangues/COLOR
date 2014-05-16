@@ -63,7 +63,7 @@ class ContributionController extends Controller
 	          $emContribution = $this->getDoctrine()->getManager();
 	          $listeContributionsSon = $emContribution->getRepository('InnovaForumMultimodalBundle:Contribution')->findBy(array('father' => $idCon));
 	          $countContributionSon = count($listeContributionsSon);
-	          // on rajoute le noombre de contribution par sujet dans le tableau : tableauCountContribution
+	          // on rajoute le nombre de contribution par sujet dans le tableau : tableauCountContribution
 	          array_push($tableauCountContributionSon,$countContributionSon);
 
 	          array_push($tableauIdContribution,$idCon);
@@ -331,12 +331,34 @@ class ContributionController extends Controller
 	return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_commentaire', array('id' => $id)));
   	// return new Response("Hello World !");
   }
-  public function deleteContributionAction()
+  public function deleteContributionAction(Contribution $contri)
   {
-    return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
+
+  	// l'id de sujet
+    $id = $contri->getId();
+  	$em = $this->getDoctrine()->getManager();
+	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($id);
+	$idSubject = $contrib->getSubject()->getId();
+	$emContribution = $this->getDoctrine()->getManager();
+	$listeContributionsSon = $emContribution->getRepository('InnovaForumMultimodalBundle:Contribution')->findBy(array('father' => $id));
+	foreach($listeContributionsSon as $cont)
+	{
+		$emContribution->remove($cont);
+    	$emContribution->flush();
+	}
+  	$em->remove($contrib);
+    $em->flush();
+
+    return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $idSubject)));
   }
-  public function updateContributionAction()
+  public function updateContributionAction(Contribution $contri)
   {
-    return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
+  	// l'id de sujet
+    $id = $contri->getId();
+    $em = $this->getDoctrine()->getManager();
+	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($id);
+	$idSubject = $contrib->getSubject()->getId();
+
+    return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $idSubject)));
   }
 }

@@ -45,6 +45,18 @@ innova_forum_multimodal_voir_commentaire:
     requirements:
         id:  \d+
 
+innova_forum_multimodal_delete_contribution:
+    path:  /forum/contribution/delete/{id}
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:deleteContribution}
+    requirements:
+        id:  \d+
+
+innova_forum_multimodal_update_contribution:
+    path:  /forum/contribution/update/{id}
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:updateContribution}
+    requirements:
+        id:  \d+
+
 innova_forum_multimodal_upload:
     pattern:  /forum/contribution/add/oral
     defaults: { _controller:InnovaForumMultimodalBundle:Ajax:upload}
