@@ -8,11 +8,26 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Innova\ForumMultimodalBundle\Entity\Contribution;
 
+/**
+ * Ajax Controller
+ * @category   Controller
+ * @package    Innova
+ * @author Mahmoud Charfeddine <[charfeddine.mahmoud@gmail.com]>
+ * @copyright  2014 Mahmoud Charfeddine.
+ * @version    0.1
+ */
 class AjaxController extends Controller
 {
 	 /**
 	 * @Route("/forum/contribution/ajax", name="innova_forum_multimodal_upload", options={"expose"=true})
 	 */
+	
+	  /**
+	   * add a contribution or comment type audio recording
+	   * 
+	   * [uploadAction description]
+	   * @return Response
+	   */
 	  public function uploadAction()
 	  {
 	  	$idsujet = $_POST["idsujet"];
@@ -58,6 +73,13 @@ class AjaxController extends Controller
 	  /**
 	 * @Route("/forum/contribution/Listen", name="innova_forum_multimodal_listen", options={"expose"=true})
 	 */
+	
+	  /**
+	   * increment the number of listening for oral contributions
+	   * 
+	   * [listenAction description]
+	   * @return Response
+	   */
 	  public function listenAction()
 	  {
 	  		$listen = $_POST["listen"];

@@ -185,10 +185,10 @@ function toggleRecording( e ) {
         document.getElementById("ecouter").disabled = true;
         document.getElementById("deposer").disabled = true;
         document.getElementById("annuler").disabled = true;
-          document.getElementById("enregistrer").innerHTML = "Stop";
-            MsgEnregistrement.innerHTML = "";
-            totale.innerHTML = "";
-            transfert.style.visibility = "hidden";
+        document.getElementById("enregistrer").innerHTML = "Stop";
+        MsgEnregistrement.innerHTML = "";
+        totale.innerHTML = "";
+        transfert.style.visibility = "hidden";
         divChargement.style.visibility = "visible";
         compte = 1;
         affichageCompteur.style.visibility = "visible";

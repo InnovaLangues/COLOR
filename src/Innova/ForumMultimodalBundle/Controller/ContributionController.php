@@ -10,10 +10,25 @@ use Innova\ForumMultimodalBundle\Form\TinymceForm;
 use Innova\ForumMultimodalBundle\Form\FileForm;
 use Innova\ForumMultimodalBundle\Entity\Contribution;
 use Innova\ForumMultimodalBundle\Entity\Subject;
-
+/**
+ * Contribution Controller
+ * @category   Controller
+ * @package    Innova
+ * @author Mahmoud Charfeddine <[charfeddine.mahmoud@gmail.com]>
+ * @copyright  2014 Mahmoud Charfeddine.
+ * @version    0.1
+ */
 class ContributionController extends Controller
 {
   
+  /**
+   * allows to visualize the contributions and add a contribution of text-editing
+   * 
+   * [showContributionAction description]
+   * @param  Subject $subj
+   * @return Response
+   * 
+   */
   public function showContributionAction(Subject $subj)
   {
         // tableau pour mettre le contenu de chaque contribution
@@ -126,6 +141,13 @@ class ContributionController extends Controller
         // - Soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
         return $this->render('InnovaForumMultimodalBundle:Forum:choiceContribution.html.twig', array('id' => $id,'form2' => $form2->createView(),'listeContributions' => $tableauContributionFather,'tableauCountContributionSon' => $tabCombine,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
   }
+  /**
+   * add a contribution deposit type file
+   * 
+   * [addContributionFileAction description]
+   * @param Subject $subj
+   * @return Response
+   */
   public function addContributionFileAction(Subject $subj)
   {
         //On récupère la requête
@@ -198,7 +220,14 @@ class ContributionController extends Controller
         // on redirige vers la page de visualisation, ici vers notre premiere action de controller
 		return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $id)));
   }
-    public function showCommentaireAction(Contribution $contri)
+  /**
+   * view comments of contribution
+   * 
+   * [showCommentaireAction description]
+   * @param  Contribution $contri
+   * @return Response
+   */
+  public function showCommentaireAction(Contribution $contri)
   {
        	//On récupère la requête
         $request = $this->getRequest();
@@ -230,6 +259,13 @@ class ContributionController extends Controller
         $idSubjectContribution = $contrib->getSubject()->getId();
         return $this->render('InnovaForumMultimodalBundle:Forum:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
   }
+  /**
+   * add a comment in text format
+   * 
+   * [AddCommentaireTextAction description]
+   * @param Contribution $contri
+   * @return Response 
+   */
   public function AddCommentaireTextAction(Contribution $contri)
   {
   	//On récupère la requête
@@ -272,6 +308,13 @@ class ContributionController extends Controller
 	return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_commentaire', array('id' => $id)));
   	// return new Response("Hello World !");
   }
+  /**
+   * add a comment in file format
+   * 
+   * [AddCommentaireFileAction description]
+   * @param Contribution $contri
+   * @return Response
+   */
   public function AddCommentaireFileAction(Contribution $contri)
   {
   	//On récupère la requête
@@ -331,6 +374,13 @@ class ContributionController extends Controller
 	return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_commentaire', array('id' => $id)));
   	// return new Response("Hello World !");
   }
+  /**
+   * delete contribution and comments related thereto
+   * 
+   * [deleteContributionAction description]
+   * @param  Contribution $contri
+   * @return Response
+   */
   public function deleteContributionAction(Contribution $contri)
   {
 
@@ -351,6 +401,13 @@ class ContributionController extends Controller
 
     return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_contribution', array('id' => $idSubject)));
   }
+  /**
+   * update a contribution
+   * 
+   * [updateContributionAction description]
+   * @param  Contribution $contri
+   * @return Response
+   */
   public function updateContributionAction(Contribution $contri)
   {
   	// l'id de sujet

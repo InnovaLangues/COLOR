@@ -1,4 +1,4 @@
-innova_forum_multimodal_homepage:
+innova_forum_multimodal_add_subject:
     path:  /
     defaults: { _controller: InnovaForumMultimodalBundle:Forum:addSubject }
 

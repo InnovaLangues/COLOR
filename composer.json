@@ -21,7 +21,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "friendsofsymfony/user-bundle": "dev-master",
-        "stfalcon/tinymce-bundle": "dev-master"
+        "stfalcon/tinymce-bundle": "dev-master",
+        "phpunit/phpunit": "4.0.17"
     },
     "scripts": {
         "post-install-cmd": [

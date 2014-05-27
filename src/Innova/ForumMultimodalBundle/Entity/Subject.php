@@ -5,6 +5,15 @@ namespace Innova\ForumMultimodalBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Subject Entity
+ * @category   Entity
+ * @package    Innova
+ * @author Mahmoud Charfeddine <[charfeddine.mahmoud@gmail.com]>
+ * @copyright  2014 Mahmoud Charfeddine.
+ * @version    0.1
+ */
+
+/**
  * Subject
  *
  * @ORM\Table()

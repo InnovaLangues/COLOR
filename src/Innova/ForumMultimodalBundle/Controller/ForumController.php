@@ -7,19 +7,46 @@ use Symfony\Component\HttpFoundation\Response;
 use Innova\ForumMultimodalBundle\Entity\Subject;
 use Innova\ForumMultimodalBundle\Entity\Contribution;
 
+/**
+ * Forum Controller
+ * @category   Controller
+ * @package    Innova
+ * @author Mahmoud Charfeddine <[charfeddine.mahmoud@gmail.com]>
+ * @copyright  2014 Mahmoud Charfeddine.
+ * @version    0.1
+ */
+
 class ForumController extends Controller
 {
 
+  /**
+   * allows to view the home page
+   * 
+   * [welcomeAction description]
+   * @return Response
+   */
   public function welcomeAction()
   {
     return $this->render('InnovaForumMultimodalBundle:Forum:reception.html.twig');
   }
 
+  /**
+   * displays the page Collectorama
+   * 
+   * [indexAction description]
+   * @return Response
+   */
   public function indexAction()
   {
     return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
   }
 
+  /**
+   * add a new Collectorama
+   * 
+   * [addSubjectAction description]
+   * @return Response
+   */
   public function addSubjectAction()
   {
 
@@ -100,10 +127,18 @@ class ForumController extends Controller
       'form' => $form->createView(),'entities' => $entities,'tableauCountContribution' => $tableauCountContribution,
     ));
   }
+  /**
+   * [deleteSubjectAction description]
+   * @return Response
+   */
   public function deleteSubjectAction()
   {
     return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
   }
+  /**
+   * [updateSubjectAction description]
+   * @return Response
+   */
   public function updateSubjectAction()
   {
     return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
