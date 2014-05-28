@@ -1,0 +1,105 @@
+
+{% extends "InnovaForumMultimodalBundle::layout.html.twig" %}
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block bloc1 %}
+<script>
+	function playPause(id)
+	{
+		var audioBalise = "audioBalise_"+id;
+		var btnPlayPause = "btnPlayPause_"+id;
+		var audioElement = document.getElementById(audioBalise);
+		var boutton = document.getElementById(btnPlayPause);
+		if (audioElement.paused) 
+		{
+			boutton.innerHTML =  "Pause";
+		    audioElement.play();
+		    // requete ajax pour incrementer le champ dans la base des données
+			var listen = 1;
+			var formData = new FormData();
+    		formData.append('listen', listen);
+    		formData.append('idContribution', id);
+    		pathRouteAjaxListen=Routing.generate('innova_forum_multimodal_listen');
+		    console.log("pathRouteAjax "+pathRouteAjaxListen);
+		    xhrListen(pathRouteAjaxListen, formData, function (reponseListen) {
+		    	// location.reload();
+		    	console.log("reponse : "+reponseListen);
+	    	});
+		}
+		else
+		{
+		  	boutton.innerHTML =  "Play";
+		    audioElement.pause();
+		}
+	}
+	function xhrListen(url, data, callback) 
+	{
+	    var request = new XMLHttpRequest();
+	    request.onreadystatechange = function () {
+	        if (request.readyState == 4 && request.status == 200) {
+	            callback(request.responseText);
+	        }
+	    };
+	    request.open('POST', url);
+	    request.send(data);
+	}
+	function afficher_cacher(id,x,y)
+    {
+  		var contributionTexte = document.getElementById("innova_forummultimodalbundle_TinymceForm_token");
+		contributionTexte.value = x;
+		console.log(contributionTexte);
+		var contributionFile = document.getElementById("pereoufils");
+		contributionFile.value = x;
+		console.log(contributionFile);
+		var contributionOral = document.getElementById("pereoufilsoral");
+		contributionOral.value = x;
+		console.log(contributionOral);
+		// document.getElementById(id).style.visibility="hidden";
+		if(x == 0 && y == "bas")
+		{
+			var idDivFormChoix ="forFormChoix_bas";
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			console.log(DivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+
+		}
+		else if(x == 0 && y != "bas")
+		{
+			var div = document.createElement('div');
+			div.setAttribute('id', 'forFormChoix_0');
+			var td = document.getElementById("tdChoix");
+			td.appendChild( div );
+			var idDivFormChoix ="forFormChoix_"+x;
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+		}
+		else
+		{
+
+				var idDivFormChoix ="forFormChoix_"+x;
+				var DivFormChoix = document.getElementById(idDivFormChoix);
+				console.log(DivFormChoix);
+				DivFormChoix.appendChild( document.getElementById(id) );
+		}
+        if(document.getElementById(id).style.visibility=="hidden")
+        {
+            document.getElementById(id).style.visibility="visible";
+        }
+        else
+        {
+            document.getElementById(id).style.visibility="hidden";
+        }
+        return true;
+    }
+
+</script>
+<input type="hidden" id="idsujet" value="{{ id }}"/>
+{# {% include "InnovaForumMultimodalBundle:Forum:choiceContributionList.html.twig" %} #}
+{% include "InnovaForumMultimodalBundle:Contribution:addFileContribution.html.twig" %}
+{% include "InnovaForumMultimodalBundle:Contribution:addTextContribution.html.twig" %}
+{% include "InnovaForumMultimodalBundle:Contribution:record_forum.html.twig" %}
+{% include "InnovaForumMultimodalBundle:Contribution:addContribution.html.twig" %}
+
+{% endblock %}

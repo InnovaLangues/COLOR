@@ -139,7 +139,7 @@ class ContributionController extends Controller
         // À ce stade :
         // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
         // - Soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-        return $this->render('InnovaForumMultimodalBundle:Forum:choiceContribution.html.twig', array('id' => $id,'form2' => $form2->createView(),'listeContributions' => $tableauContributionFather,'tableauCountContributionSon' => $tabCombine,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
+        return $this->render('InnovaForumMultimodalBundle:Contribution:choiceContribution.html.twig', array('id' => $id,'form2' => $form2->createView(),'listeContributions' => $tableauContributionFather,'tableauCountContributionSon' => $tabCombine,'countContribution' => $countContribution,'subject' => $subject,'consigne' => $consigne,));
   }
   /**
    * add a contribution deposit type file
@@ -257,7 +257,7 @@ class ContributionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($id);
         $idSubjectContribution = $contrib->getSubject()->getId();
-        return $this->render('InnovaForumMultimodalBundle:Forum:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
+        return $this->render('InnovaForumMultimodalBundle:Commentaire:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
   }
   /**
    * add a comment in text format

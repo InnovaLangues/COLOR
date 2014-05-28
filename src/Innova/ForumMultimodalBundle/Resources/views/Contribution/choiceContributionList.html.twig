@@ -1,0 +1,29 @@
+<div class="modal hide fade" id="Record">
+	  <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
+	    <h5>Ajouter une contribution – Choix du type de contribution</h5>
+	  </div>
+	<div class="modal-body">
+		<form method="post" {{ form_enctype(form) }}>
+
+        <table>       
+	        {% for child in form.Choix %}
+	        	<div class="row">
+	                <div class="span2">
+	                  {{ form_widget(child) }}
+	                </div>
+	                <div class="span2">
+	                  {{ form_label(child) }}
+	                </div>
+	                <div class="span2">
+	                  {{ form_errors(child) }}
+	                </div>
+	            </div>
+			{% endfor %}
+        </table>
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Valider" class="btn btn-primary" />
+    </form>
+	</div>
+    <div class="modal-footer"> <a class="btn btn-info" data-dismiss="modal">Fermer</a> </div>
+	</div>

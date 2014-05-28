@@ -1,0 +1,12 @@
+
+{% extends "InnovaForumMultimodalBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block bloc1 %}
+<input type="hidden" id="idsujet" value="{{ id }}"/>
+{% include "InnovaForumMultimodalBundle:Contribution:record_forum.html.twig" %}
+{% include "InnovaForumMultimodalBundle:Contribution:contribution_sujet_forum.html.twig" %}
+{% endblock %}

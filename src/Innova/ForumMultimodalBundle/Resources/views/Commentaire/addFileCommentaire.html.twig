@@ -1,0 +1,56 @@
+<script>
+console.log("test");
+function messageFlashFile(x)
+  {
+    var msg = document.getElementById("msgFlshFile");
+    var div = document.createElement('div');
+    div.setAttribute('class', "alert-success");
+    msg.appendChild( div );
+    if(x == 0)
+    {
+        div.innerHTML = "Opération annulée";
+        // On l'efface 2 secondes plus tard
+        setTimeout(function() { div.innerHTML = "";},2000);
+    }
+    else if(x == 1)
+    {
+        div.innerHTML = "Votre contribution a été déposé avec success";
+        setTimeout(function() { div.innerHTML = "";},2000);
+    }
+  }
+</script>
+<div class="modal hide fade" id="file">
+	  <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
+	    <h5>Ajouter une contribution – Dêpot fichier</h5>
+	  </div>
+	  
+	<div class="modal-body">
+	<div id="msgFlshFile"></div>
+	<br />
+	<div class="well">
+		<form enctype="multipart/form-data" action="{{ path('innova_forum_multimodal_add_commentaire_file', {id: id }) }}" method="post">
+                <div class="row">
+                    <div class="span2">
+                      Ajouter fichier : 
+                    </div>
+                    <div class="span2">
+                      <input type="file" id="file" name="file" required="required"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                      Nom du lien (facultatif): 
+                    </div>
+                    <div class="span2">
+                      <input type="text" id="lien" name="lien" />
+                    </div>
+                    <input type="hidden" id="pereoufils" name="pereoufils"/>
+                </div>
+	 </div>
+	</div>
+      <div class="modal-footer"> 
+            <input type="reset" value="Annuler" class="btn btn-primary" onclick="messageFlashFile(0);" />
+            <input type="submit" value="Valider" class="btn btn-primary" onclick="messageFlashFile(1);"/>
+          </form>
+          </div>
+  </div>

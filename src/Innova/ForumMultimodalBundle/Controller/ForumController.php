@@ -27,7 +27,7 @@ class ForumController extends Controller
    */
   public function welcomeAction()
   {
-    return $this->render('InnovaForumMultimodalBundle:Forum:reception.html.twig');
+    return $this->render('InnovaForumMultimodalBundle:Collectorama:reception.html.twig');
   }
 
   /**
@@ -38,7 +38,7 @@ class ForumController extends Controller
    */
   public function indexAction()
   {
-    return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
+    return $this->render('InnovaForumMultimodalBundle:Collectorama:index.html.twig');
   }
 
   /**
@@ -84,7 +84,7 @@ class ForumController extends Controller
 
           // On redirige vers la page de visualisation de l'article nouvellement créé
           // return $this->redirect($this->generateUrl('innova_forum_multimodal_homepage', array('id' => $Subject->getId())));
-          return $this->redirect($this->generateUrl('innova_forum_multimodal_homepage'));
+          return $this->redirect($this->generateUrl('innova_forum_multimodal_add_subject'));
         }
     }
 
@@ -123,7 +123,7 @@ class ForumController extends Controller
         array_push($tableauCountContribution,$countContribution);
         }
 
-    return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig', array(
+    return $this->render('InnovaForumMultimodalBundle:Collectorama:index.html.twig', array(
       'form' => $form->createView(),'entities' => $entities,'tableauCountContribution' => $tableauCountContribution,
     ));
   }
@@ -133,7 +133,7 @@ class ForumController extends Controller
    */
   public function deleteSubjectAction()
   {
-    return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
+    return $this->render('InnovaForumMultimodalBundle:Collectorama:index.html.twig');
   }
   /**
    * [updateSubjectAction description]
@@ -141,6 +141,6 @@ class ForumController extends Controller
    */
   public function updateSubjectAction()
   {
-    return $this->render('InnovaForumMultimodalBundle:Forum:index.html.twig');
+    return $this->render('InnovaForumMultimodalBundle:Collectorama:index.html.twig');
   }
 }
