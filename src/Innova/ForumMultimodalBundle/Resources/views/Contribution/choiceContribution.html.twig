@@ -12,11 +12,9 @@
 		var btnPlayPause = "btnPlayPause_"+id;
 		var audioElement = document.getElementById(audioBalise);
 		var boutton = document.getElementById(btnPlayPause);
-		if (audioElement.paused) 
-		{
-			boutton.innerHTML =  "Pause";
-		    audioElement.play();
-		    // requete ajax pour incrementer le champ dans la base des données
+		document.getElementById(audioBalise).addEventListener("ended",function() {
+        console.log("audio fini");
+        // requete ajax pour incrementer le champ dans la base des données
 			var listen = 1;
 			var formData = new FormData();
     		formData.append('listen', listen);
@@ -27,6 +25,23 @@
 		    	// location.reload();
 		    	console.log("reponse : "+reponseListen);
 	    	});
+        location.reload();
+   		 });
+		if (audioElement.paused) 
+		{
+			boutton.innerHTML =  "Pause";
+		    audioElement.play();
+		 //    // requete ajax pour incrementer le champ dans la base des données
+			// var listen = 1;
+			// var formData = new FormData();
+   //  		formData.append('listen', listen);
+   //  		formData.append('idContribution', id);
+   //  		pathRouteAjaxListen=Routing.generate('innova_forum_multimodal_listen');
+		 //    console.log("pathRouteAjax "+pathRouteAjaxListen);
+		 //    xhrListen(pathRouteAjaxListen, formData, function (reponseListen) {
+		 //    	// location.reload();
+		 //    	console.log("reponse : "+reponseListen);
+	  //   	});
 		}
 		else
 		{
