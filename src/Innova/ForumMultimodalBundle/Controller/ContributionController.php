@@ -374,6 +374,36 @@ class ContributionController extends Controller
 	return $this->redirect($this->generateUrl('innova_forum_multimodal_voir_commentaire', array('id' => $id)));
   	// return new Response("Hello World !");
   }
+
+
+  /**
+   * [showSlideshowAction description]
+   * @param  Subject $subj [description]
+   * @return Response
+   */
+  public function showSlideshowAction(Subject $subj)
+  {
+
+    //On récupère la requête
+        $request = $this->getRequest();
+        // l'id de sujet
+        $id = $subj->getId();
+        // la consigne donner avec le sujet
+        $consigne = $subj->getConsigne();
+        // l'auteur du sujet
+        $author = $subj->getAuteur();
+        // date d'ajout du sujet
+        $date = $subj->getDate();
+        // le sujet
+        $subject = $subj->getSujet();
+        // debut remplissage tableau $tableauContributionFather
+        $emContribution = $this->getDoctrine()
+                           ->getManager()
+                           ->getRepository('InnovaForumMultimodalBundle:Contribution');
+        $listeContributions = $emContribution->findBy(array('subject' => $id));
+    return $this->render('InnovaForumMultimodalBundle:Contribution:diaporama.html.twig', array('id' => $id,'date' => $date,'author' => $author,'listeContributions' => $listeContributions,'subject' => $subject,'consigne' => $consigne,));
+  }
+  
   /**
    * delete contribution and comments related thereto
    * 

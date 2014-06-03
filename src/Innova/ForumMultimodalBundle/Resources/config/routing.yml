@@ -63,6 +63,12 @@ innova_forum_multimodal_upload:
     options:
         expose: true
 
+innova_forum_multimodal_view_slideshow:
+    path:  /forum/contribution/subject/{id}/slideshow
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:showSlideshow}
+    requirements:
+        id:  \d+
+
 innova_forum_multimodal_listen:
     pattern:  /forum/contribution/listen
     defaults: { _controller:InnovaForumMultimodalBundle:Ajax:listen}

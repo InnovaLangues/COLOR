@@ -68,6 +68,38 @@ nav a {
 .bordureRouge {
 	border-bottom: solid 2px #CB0B2B;
 }
+#slider
+{
+	border-bottom: solid 2px #CB0B2B;
+	border-top: solid 2px #CB0B2B;
+	border-left: solid 2px #CB0B2B;
+	border-right: solid 2px #CB0B2B;
+	width: 500px;
+	height: 400px;
+	text-align: center;
+}
+li
+{
+	width: 500px;
+	text-align: center;
+}
+li audio
+{
+	margin-top: 200px;
+}
+li object
+{
+	width: 500px;
+	height: 420px;
+}
+li img
+{
+	height: 420px;
+}
+li p
+{
+	margin-top: 80px;
+}
 /* animation css3 */
 /* http://www.css3create.com*/
 #header .wrapLeft{width:360px;height:100%;background:#51c3fa;}

@@ -15,7 +15,7 @@
 							<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" onclick="javascript:afficher_cacher('FormulaireChoix',0,'haut');">Ajouter une contribution</a> 
 						</td>
 						<td>
-							<a class="btn btn-danger">Tout lire</a> 
+							<a class="btn btn-danger" href="{{ path('innova_forum_multimodal_view_slideshow', { 'id': id }) }}">Tout lire</a> 
 						</td>
 					</tr>
 						<tr>
@@ -51,7 +51,7 @@
 						</td>
 						<td>
 							<span style="font-weight: bold; color: #1290D0;">Déposer par {{sons.user}}</span><br />
-							<span style="font-size: x-small;">Le {{sons.date|date("m/d/Y")}} à {{sons.time|date("H:i:s")}}</span><br />
+							<span style="font-size: x-small;">Le {{sons.date|date("d/m/Y")}} à {{sons.time|date("H:i:s")}}</span><br />
 							<span style="font-size: x-small;"> 
 							{% if tableauCountContributionSon[sons.id] < 2 %}
 							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaire </a>

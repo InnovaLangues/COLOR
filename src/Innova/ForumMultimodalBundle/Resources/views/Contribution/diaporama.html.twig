@@ -1,0 +1,56 @@
+
+{% extends "InnovaForumMultimodalBundle::layout.html.twig" %}
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block bloc1 %}
+<br /><br />
+<div class="row">
+		<div class="span2">
+		</div>
+		<div class="span8">
+		<div class="well">
+			<button class="btn btn-warning btn-small" id="prevslide"><i class="icon-backward"></i></button>
+			<button class="btn btn-warning btn-small" id="nextslide"><i class="icon-forward"></i></button>
+			<button class="btn btn-warning btn-small" id="pauseslide"><i class="icon-pause"></i></button>
+			<button class="btn btn-warning btn-small" id="playslide"><i class="icon-play"></i></button> 
+		</div>
+		</div>
+		<div class="span2">
+		</div>
+	</div>
+	<br />
+	<div class="row">
+	<div class="span3">
+	<form action="{{ path('innova_forum_multimodal_voir_contribution',{ 'id': id })}}" method="post">
+								<input type="submit" class="btn btn-danger" name="ajout" style="position: static; float: right;" value="Retour"/>
+							</form>
+	</div>
+	<div class="span6">	
+		<ul id="slider" class="well">
+				<li><p>Film - <strong><font color="red">{{subject}}</font></strong></p><br /><p><font color="blue">{{consigne}}</font></p><br /><p>Collectorama ajouter par {{author}} le {{date|date("d/m/Y")}}</p></li>
+				{% for sons in listeContributions %}
+
+					{% if sons.type == "oral" %}
+						<li><audio src="{{asset(sons.contents)}}" controls></audio></li>
+					{% elseif sons.type == "fichier" %}
+						{% if (sons.extension == "png") or (sons.extension == "jpg") or (sons.extension == "jpeg") or (sons.extension == "gif") %}
+							<li><img src="{{ asset(sons.contents)}}" alt="" id="img" /></li>								
+						{% elseif (sons.extension == "pdf") %}
+							<li><object id="cv" data="{{asset(sons.contents)}}" type="application/pdf"></object></li>
+						{% elseif (sons.extension == "txt") %}
+							<li><object id="cv" data="{{asset(sons.contents)}}" type="text/plain"></object></li>
+						{% endif %}
+					{% else %}
+						  <li><p>{{sons.contents | raw}}</p></li>
+					{% endif %}
+				{% endfor %}
+		</ul>
+	</div>
+	<div class="span3">
+	</div>
+		
+	</div>
+
+{% endblock %}
