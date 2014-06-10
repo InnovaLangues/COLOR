@@ -8,6 +8,9 @@
 <br /><br />
 <div class="row">
 		<div class="span2">
+			<form action="{{ path('innova_forum_multimodal_voir_contribution',{ 'id': id })}}" method="post">
+								<input type="submit" class="btn btn-danger" name="ajout" style="position: static; float: right;" value="Retour"/>
+							</form>
 		</div>
 		<div class="span8">
 		<div class="well">
@@ -18,14 +21,15 @@
 		</div>
 		</div>
 		<div class="span2">
+			<form action="{{ path('innova_forum_multimodal_download_slideshow',{ 'id': id })}}" method="post">
+								<input type="submit" class="btn btn-danger" name="ajout" style="position: static; float: right;" value="Télécharger"/>
+							</form>
 		</div>
 	</div>
 	<br />
 	<div class="row">
 	<div class="span3">
-	<form action="{{ path('innova_forum_multimodal_voir_contribution',{ 'id': id })}}" method="post">
-								<input type="submit" class="btn btn-danger" name="ajout" style="position: static; float: right;" value="Retour"/>
-							</form>
+	
 	</div>
 	<div class="span6">	
 		<ul id="slider" class="well">

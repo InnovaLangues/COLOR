@@ -69,6 +69,12 @@ innova_forum_multimodal_view_slideshow:
     requirements:
         id:  \d+
 
+innova_forum_multimodal_download_slideshow:
+    path:  /forum/contribution/subject/{id}/slideshow/download
+    defaults: { _controller:InnovaForumMultimodalBundle:Contribution:downloadSlideshow}
+    requirements:
+        id:  \d+
+
 innova_forum_multimodal_listen:
     pattern:  /forum/contribution/listen
     defaults: { _controller:InnovaForumMultimodalBundle:Ajax:listen}
