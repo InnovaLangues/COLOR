@@ -606,10 +606,20 @@ class ContributionController extends Controller
 	$idSubject = $contrib->getSubject()->getId();
 	$emContribution = $this->getDoctrine()->getManager();
 	$listeContributionsSon = $emContribution->getRepository('InnovaForumMultimodalBundle:Contribution')->findBy(array('father' => $id));
-	foreach($listeContributionsSon as $cont)
+	$dir = $this->get('kernel')->getRootDir().'/../web/';
+  foreach($listeContributionsSon as $cont)
 	{
-		$emContribution->remove($cont);
+    if($cont->getType() == "oral" || $cont->getType() == "fichier")
+    {
+      unlink($dir.$cont->getContents());
+		  $emContribution->remove($cont);
     	$emContribution->flush();
+    }
+    else
+    {
+      $emContribution->remove($cont);
+      $emContribution->flush();
+    }
 	}
   	$em->remove($contrib);
     $em->flush();
