@@ -13,18 +13,18 @@
         <form action="{{ path('fos_user_security_check') }}" class="form-horizontal" method="post">
             <fieldset>
                 <div id="legend">
-                    <legend class="">{{ 'security.login.submit'|trans }}</legend>
+                    <legend class="">Authentification</legend>
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                 <div class="form-group">
-                    <label for="username" class="col-lg-2 control-label">{{ 'security.login.username'|trans }}</label>
+                    <label for="username" class="col-lg-2 control-label">Login : </label>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="username" name="_username">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="col-lg-2 control-label">{{ 'security.login.password'|trans }}</label>
+                    <label for="password" class="col-lg-2 control-label">Mot de passe : </label>
                     <div class="col-lg-10">
                         <input type="password" class="form-control" id="password" name="_password">
                     </div>
@@ -32,7 +32,7 @@
                 <br/>
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary"/>
+                        <input type="submit" id="_submit" name="_submit" value="Connexion" class="btn btn-primary"/>
                         <div class="span2"></div>
                         <a class="btn btn-default" href="{{ path('fos_user_registration_register') }}">Créer un compte</a></li>
                     </div>

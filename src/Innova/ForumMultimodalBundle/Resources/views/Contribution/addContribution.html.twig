@@ -93,10 +93,12 @@
 								{% endif %}
 								<br />
 								<div class="row" style="position: static; float: right;">
+								{% if is_granted('ROLE_SUPER_ADMIN') %}
 								<a href="{{ path('innova_forum_multimodal_update_contribution', { 'id': sons.id }) }}">Modifier</a>
 								<div class="span1">
 								</div>
 								<a href="{{ path('innova_forum_multimodal_delete_contribution', { 'id': sons.id }) }}" >Supprimer</a>
+								{% endif %}
 								</div>
 						</td>
 						<td>
