@@ -82,18 +82,21 @@ class AjaxController extends Controller
 	   */
 	  public function listenAction()
 	  {
-	  		$listen = $_POST["listen"];
-	  		$idContribution = $_POST["idContribution"];
+	  		$request = $this->get('request');
 			$em = $this->getDoctrine()->getManager();
+
+	  		$listen = $request->request->get('listen');
+	  		$idContribution = $request->request->get('idContribution');
+
 	        $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($idContribution);
 	        $listenContrib = $contrib->getListen();
 	        $updateListen = $listenContrib + $listen;
-	        $contrib->SetListen($updateListen);
+	        $contrib->setListen($updateListen);
 	        $em->persist($contrib);
+
             $em->flush();
 
 	  		$response = "updateListen => ".$updateListen." listenContrib => ".$listenContrib;
 	  		return new Response($response);
-
 	  }
 }
