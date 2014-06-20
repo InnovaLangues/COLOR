@@ -80,9 +80,9 @@ class Contribution
     private $father;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="listen", type="string", length=255)
+     * @ORM\Column(name="listen", type="integer")
      */
     private $listen;
 
@@ -269,7 +269,7 @@ class Contribution
     /**
      * Get listen
      *
-     * @return string 
+     * @return integer 
      */
     public function getListen()
     {
@@ -279,7 +279,7 @@ class Contribution
     /**
      * Set listen
      *
-     * @param string $listen
+     * @param integer $listen
      * @return Contribution
      */
     public function setListen($listen)

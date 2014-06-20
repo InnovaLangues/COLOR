@@ -85,18 +85,19 @@ class AjaxController extends Controller
 	  		$request = $this->get('request');
 			$em = $this->getDoctrine()->getManager();
 
-	  		$listen = $request->request->get('listen');
 	  		$idContribution = $request->request->get('idContribution');
 
-	        $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($idContribution);
-	        $listenContrib = $contrib->getListen();
-	        $updateListen = $listenContrib + $listen;
-	        $contrib->setListen($updateListen);
-	        $em->persist($contrib);
+	        if($contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($idContribution)){
+		        $listenContrib = $contrib->getListen();
+		        $contrib->setListen($listenContrib + 1);
 
-            $em->flush();
-
-	  		$response = "updateListen => ".$updateListen." listenContrib => ".$listenContrib;
-	  		return new Response($response);
+		        $em->persist($contrib);
+	            $em->flush();
+		  	}
+		  	else{
+		  		echo "pas trouvé";
+		  	}
+		  	
+	  		return new Response();
 	  }
 }
