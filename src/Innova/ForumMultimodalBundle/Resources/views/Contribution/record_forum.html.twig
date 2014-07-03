@@ -18,10 +18,12 @@
 				margin: 0 0;
 			}
 			canvas {
+				text-align: center;
+				margin-left: 90px;
 				display: inline-block; 
 				background: #202020;
-				width: 100%;
-				height: 25%;
+				width: 40%;
+				height: 12%;
 				box-shadow: 0px 0px 10px blue;
 			}
 			</style>
@@ -33,13 +35,13 @@
 						<br />
 					</div>
 					<div class="row">
-						<div class="span1">
-						</div>
-						<div class="span4">
-							<canvas id="analyser" width="380" height="150"></canvas>
-						</div>
-						<div class="span3">
-						</div>
+					<div id="perecanvas">
+						
+							{# <canvas id="analyser"></canvas> #}
+
+					</div>
+						
+
 					</div>
 					<br />
 					<div class="span4">
@@ -63,12 +65,15 @@
 						<br />
 						<span id="totale"></span>
 						<span id="compt"></span>
+						<br />
+						<div id="compte_a_rebours"></div>
+						<span id="estimer"></span>
 				</div>
 				<br />
 				<table>
 				<input type="hidden" id="pereoufilsoral" name="pereoufilsoral"/>
 					<tr class-"text-center">						
-						<button class="btn btn-success" id="enregistrer"  onclick="toggleRecording(this);">Enregistrer</button>
+						<button class="btn btn-success" id="enregistrer"  onclick="toggleRecording(this);">S'enregistrer</button>
 						&nbsp;
 						<button class="btn btn-success" id="ecouter" onclick="saveAudio();">S’écouter</button>							
 					</tr>

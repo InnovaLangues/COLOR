@@ -56,14 +56,33 @@
 		var contributionOral = document.getElementById("pereoufilsoral");
 		contributionOral.value = x;
 		console.log(contributionOral);
-		// document.getElementById(id).style.visibility="hidden";
+		document.getElementById('forFormChoix_bas').style.display = 'none';
+		document.getElementById('forFormChoix_basCommentaire').style.display = 'none';
+		// document.getElementById(id).style.visibility="visible";
 		if(x == 0 && y == "bas")
 		{
 			var idDivFormChoix ="forFormChoix_bas";
 			var DivFormChoix = document.getElementById(idDivFormChoix);
 			console.log(DivFormChoix);
 			DivFormChoix.appendChild( document.getElementById(id) );
-
+			document.getElementById('forFormChoix_bas').style.display = 'none';
+			document.getElementById('forFormChoix_basCommentaire').style.display = 'none';
+		}
+		else if(x == 0 && y == "basClick")
+		{	
+			var idDivFormChoix ="forFormChoix_bas";
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			console.log(DivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+			// document.getElementById("forFormChoix_bas").style.visibility="inline";
+			if(document.getElementById('forFormChoix_bas').style.display=="none")
+	        {
+	            document.getElementById('forFormChoix_bas').style.display="inline";
+	        }
+	        else
+	        {
+	            document.getElementById('forFormChoix_bas').style.display="none";
+	        }
 		}
 		else if(x == 0 && y != "bas")
 		{
@@ -74,23 +93,31 @@
 			var idDivFormChoix ="forFormChoix_"+x;
 			var DivFormChoix = document.getElementById(idDivFormChoix);
 			DivFormChoix.appendChild( document.getElementById(id) );
+			if(document.getElementById('forFormChoix_bas').style.display=="none")
+	        {
+	            document.getElementById('forFormChoix_bas').style.display="inline";
+	        }
+	        else
+	        {
+	            document.getElementById('forFormChoix_bas').style.display="none";
+	        }
 		}
 		else
 		{
-
-				var idDivFormChoix ="forFormChoix_"+x;
-				var DivFormChoix = document.getElementById(idDivFormChoix);
-				console.log(DivFormChoix);
-				DivFormChoix.appendChild( document.getElementById(id) );
+			var idDivFormChoix ="forFormChoix_"+x;
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			console.log(DivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+			if(document.getElementById('forFormChoix_basCommentaire').style.display=="none")
+	        {
+	            document.getElementById('forFormChoix_basCommentaire').style.display="inline";
+	        }
+	        else
+	        {
+	            document.getElementById('forFormChoix_basCommentaire').style.display="none";
+	        }
+			// document.getElementById('forFormChoix_basCommentaire').style.display = 'inline';
 		}
-        if(document.getElementById(id).style.visibility=="hidden")
-        {
-            document.getElementById(id).style.visibility="visible";
-        }
-        else
-        {
-            document.getElementById(id).style.visibility="hidden";
-        }
         return true;
     }
 

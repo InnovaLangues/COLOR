@@ -54,6 +54,16 @@ img2.setAttribute('width', '24px');
 chargement2.appendChild( img2 );
 chargement2.style.visibility = "hidden";
 /*  Fin partie chargement */
+/* canvas*/
+var barreSon=document.getElementById('perecanvas');
+var canvasFils = document.createElement('canvas');
+canvasFils.setAttribute('id', 'analyser');
+barreSon.appendChild( canvasFils );
+console.log(barreSon);
+barreSon.style.visibility = "visible";
+/*  Fin canvas */
+
+
 var recordAudio =document.getElementById("recordAudio");
 var audio = document.createElement('audio');
 audio.style.visibility = "hidden";
@@ -79,6 +89,28 @@ function compter()
     compte++;
 }
 /* Fin compteur */
+
+
+
+function compte_a_rebours(val)
+{
+    document.getElementById("compte_a_rebours").innerHTML = "Temps restant du dépôt du fichier sur le serveur "+val;
+    if(val > 0)
+    {
+        setTimeout(function() { compte_a_rebours(val-1);},1000);
+    }
+    else
+    {
+        document.getElementById("compte_a_rebours").innerHTML = "Patientez SVP";
+    }
+}
+
+
+
+
+
+
+// *********************
 var fileName;
 function saveAudio() {
     // audioRecorder.exportMP3( doneEncoding );
@@ -88,6 +120,7 @@ function saveAudio() {
     audioRecorder.exportWAV( doneEncoding );
     affichageCompteur.style.visibility = "hidden";
     chargement2.style.visibility = "hidden";
+    barreSon.style.visibility = "hidden";
     // could get mono instead by saying
     // audioRecorder.exportMonoWAV( doneEncoding );
 }
@@ -97,14 +130,16 @@ function listen(stream) {
         document.getElementById("deposer").disabled = false;
         document.getElementById("annuler").disabled = false;
         audio.style.visibility = "visible";
-        MsgEnregistrement.innerHTML = "";
-        totale.innerHTML = "";
+        MsgEnregistrement.innerHTML = "Enregistrement terminé";
+        totale.innerHTML = "Total : ";
+        affichageCompteur.style.visibility = "visible";
         audio.setAttribute('id', 'preview');
         audio.setAttribute('controls', '');
         recordAudio.appendChild( audio );
         var EltAudio =document.getElementById("preview");
         /* fin balise audio */
         chargement2.style.visibility = "hidden";
+        barreSon.style.visibility = "hidden";
         EltAudio.src = window.URL.createObjectURL(stream);
         console.log("preview.src : "+EltAudio.src);
         console.log(EltAudio);
@@ -124,7 +159,7 @@ function PostBlob(blob, fileName) {
     // POST the Blob
     pathRouteAjax=Routing.generate('innova_forum_multimodal_upload');
     console.log("pathRouteAjax "+pathRouteAjax);
-    console.log("id mta3 zebi est : "+idsujet);
+    console.log("id sujet est : "+idsujet);
     xhr(pathRouteAjax, formData, function (fileURL) {
         console.log("fileURL : "+fileURL);
         // preview.src = '/../web/uploads' +'/'+ fileURL;
@@ -143,8 +178,10 @@ function Deposer()
     audioRecorder.exportWAV( doneEncoding2 );
     // audioRecorder.exportMP3( doneEncoding2 );
     chargement2.style.visibility = "visible";
-    MsgEnregistrement.innerHTML = "";
-    totale.innerHTML = "";
+    MsgEnregistrement.innerHTML = "Enregistrement terminé";
+    totale.innerHTML = "Total : ";
+    affichageCompteur.style.visibility = "visible";
+    compte_a_rebours(tempsEstimer);
 }
 
 function drawWave( buffers ) {
@@ -164,18 +201,26 @@ function doneEncoding2( blob ) {
 }
 
 function toggleRecording( e ) {
+    barreSon.style.visibility = "visible";
     audio.style.visibility = "hidden";
-    document.getElementById("enregistrer").innerHTML =  "Enregistrer";
+    document.getElementById("enregistrer").innerHTML =  "S'enregistrer";
     document.getElementById("ecouter").disabled = false;
     document.getElementById("deposer").disabled = false;
     document.getElementById("annuler").disabled = false;
     if (e.classList.contains("recording")) {
         // stop recording
         audioRecorder.stop();
+        barreSon.style.visibility = "hidden";
         e.classList.remove("recording");
         audioRecorder.getBuffers( drawWave );
         MsgEnregistrement.innerHTML = "Enregistrement terminé";
         totale.innerHTML = "Total : ";
+        var contenuCompteur=document.getElementById('compt').innerHTML;
+        var elem = contenuCompteur.split(' ');
+        nbreSeconde = elem[0];
+        tempsEstimer = nbreSeconde * 3 / 2 ;
+        estimer.innerHTML = "Temps estimés de dépôt sur le serveur : "+tempsEstimer+" secondes ";
+        console.log(tempsEstimer);
          divChargement.style.visibility = "hidden";
          transfert.style.visibility = "hidden";
          clearInterval(timer);
@@ -186,6 +231,7 @@ function toggleRecording( e ) {
         document.getElementById("deposer").disabled = true;
         document.getElementById("annuler").disabled = true;
         document.getElementById("enregistrer").innerHTML = "Stop";
+        estimer.innerHTML ="";
         MsgEnregistrement.innerHTML = "";
         totale.innerHTML = "";
         transfert.style.visibility = "hidden";
