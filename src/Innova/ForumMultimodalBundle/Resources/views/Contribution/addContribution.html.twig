@@ -1,6 +1,6 @@
 <h4>Collectorama – {{subject}} ({% if countContribution < 2 %} {{countContribution}} contribution {% else %} {{countContribution}} contributions {% endif %})</h4>
 				<br />
-				<table class="table table-striped table-bordered">
+				<table>
 					<div class="well">{{consigne}}</div>
 				</table>
 				<br />
@@ -9,6 +9,12 @@
 						<td>
 							<a class="btn btn-danger" title="Retourner à la page des collectorama" href="{{ path('innova_forum_multimodal_add_subject')}}">Retour</a> 
 						</td>
+					</tr>
+				</table>
+				<br />
+				<br />
+				<table>
+					<tr>
 						<td>
 							<a class="open-AddBookDialog btn btn-danger" title="Ajouter une contribution" data-toggle="modal" href="#" data-id="0" onclick="javascript:afficher_cacher('FormulaireChoix',0,'haut');">+</a> 
 						</td>
@@ -17,6 +23,8 @@
 							<a class="btn btn-danger" title="Ajouter une consigne " href="#">!</a> 
 						</td>
 						{% endif %}
+						<td style="width: 200%; text-align: center;">
+						</td>
 						<td>
 							<a class="btn btn-danger" title="Tout lire de manière automatique " href="{{ path('innova_forum_multimodal_view_slideshow', { 'id': id }) }}">Diaporama</a> 
 						</td>
