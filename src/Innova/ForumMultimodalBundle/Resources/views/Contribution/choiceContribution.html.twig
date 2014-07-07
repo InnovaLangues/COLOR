@@ -93,13 +93,13 @@
 			var idDivFormChoix ="forFormChoix_"+x;
 			var DivFormChoix = document.getElementById(idDivFormChoix);
 			DivFormChoix.appendChild( document.getElementById(id) );
-			if(document.getElementById('forFormChoix_bas').style.display=="none")
+			if(document.getElementById(idDivFormChoix).style.display=="none")
 	        {
-	            document.getElementById('forFormChoix_bas').style.display="inline";
+	            document.getElementById(idDivFormChoix).style.display="inline";
 	        }
 	        else
 	        {
-	            document.getElementById('forFormChoix_bas').style.display="none";
+	            document.getElementById(idDivFormChoix).style.display="none";
 	        }
 		}
 		else
@@ -108,17 +108,22 @@
 			var DivFormChoix = document.getElementById(idDivFormChoix);
 			console.log(DivFormChoix);
 			DivFormChoix.appendChild( document.getElementById(id) );
-			if(document.getElementById('forFormChoix_basCommentaire').style.display=="none")
+			if(document.getElementById(idDivFormChoix).style.display=="none")
 	        {
-	            document.getElementById('forFormChoix_basCommentaire').style.display="inline";
+	            document.getElementById(idDivFormChoix).style.display="inline";
 	        }
 	        else
 	        {
-	            document.getElementById('forFormChoix_basCommentaire').style.display="none";
+	            document.getElementById(idDivFormChoix).style.display="none";
 	        }
 			// document.getElementById('forFormChoix_basCommentaire').style.display = 'inline';
 		}
         return true;
+    }
+ 	function cacher(x)
+    {
+    	var idColonne ="forFormChoix_"+x;
+		document.getElementById(idColonne).style.display = 'none';  
     }
 
 </script>

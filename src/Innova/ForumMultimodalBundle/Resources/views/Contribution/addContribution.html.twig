@@ -44,27 +44,29 @@
 							{% endif %}
 						</td>
 						<td>
-							<span style="font-weight: bold; color: #1290D0;">Déposé par {{sons.user}}</span><br />
-							<span style="font-size: x-small;">Le {{sons.date|date("d/m/Y")}} à {{sons.time|date("H:i:s")}}</span><br />
-							<span style="font-size: x-small;"> 
-							{% if tableauCountContributionSon[sons.id] < 2 %}
-							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaire </a>
-							{% else %}
-							<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaires </a>
-							{% endif %}
-
-							</span>
-							<br />
-							<span style="font-size: x-small;"> 
-							{% if sons.type == "oral" %}
-								{% if sons.listen < 2 %}
-									{{sons.listen}} écoute
+							<div onclick="cacher({{sons.id}});">
+								<span style="font-weight: bold; color: #1290D0;">Déposé par {{sons.user}}</span><br />
+								<span style="font-size: x-small;">Le {{sons.date|date("d/m/Y")}} à {{sons.time|date("H:i:s")}}</span><br />
+								<span style="font-size: x-small;"> 
+								{% if sons.type == "oral" %}
+									{% if sons.listen < 2 %}
+										{{sons.listen}} écoute
+									{% else %}
+										{{sons.listen}} écoutes
+									{% endif %}
 								{% else %}
-									{{sons.listen}} écoutes
 								{% endif %}
-							{% else %}
-							{% endif %}
-							</span>
+								</span>
+								<br />
+								<span style="font-size: x-small;"> 
+								{% if tableauCountContributionSon[sons.id] < 2 %}
+								<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaire </a>
+								{% else %}
+								<a href="{{ path('innova_forum_multimodal_voir_commentaire', { 'id': sons.id }) }}">{{tableauCountContributionSon[sons.id] }} commentaires </a>
+								{% endif %}
+
+								</span>
+							</div>
 							<br />
 							<a class="open-AddBookDialog btn btn-danger" title="Ajouter un commentaire" data-toggle="modal" href="#" data-id="{{sons.id}}" onclick="javascript:afficher_cacher('FormulaireChoixCommentaire',{{sons.id}},'rien');">Réagir</a>
 							<br /><br />

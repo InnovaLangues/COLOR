@@ -250,6 +250,8 @@ class ContributionController extends Controller
         $date = $contri->getDate();
         // time de la contribution
         $time = $contri->getTime();
+        // lien de la contribution
+        $lien = $contri->getLien();
         // debut remplissage tableau $tableauContributionFather
         $emContribution = $this->getDoctrine()
                            ->getManager()
@@ -260,7 +262,7 @@ class ContributionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($id);
         $idSubjectContribution = $contrib->getSubject()->getId();
-        return $this->render('InnovaForumMultimodalBundle:Commentaire:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
+        return $this->render('InnovaForumMultimodalBundle:Commentaire:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'lien' => $lien,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
   }
   /**
    * add a comment in text format
