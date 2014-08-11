@@ -120,6 +120,8 @@ class ContributionController extends Controller
                 // on recupere l'id de contribution pere
                 $pereoufils = $form2["token"]->getData();
                 $contributionEntity->setFather($pereoufils);
+                $contConsigne = $form2["token2"]->getData();
+                $contributionEntity->setContconsigne($contConsigne);
                 // recuperer le contenu de l'editeur
                 $contenuEditeur = $form2["Editeur"]->getData();
                 $data = $this->getRequest()->request->get('innova_forummultimodalbundle_TinymceForm');
@@ -186,7 +188,9 @@ class ContributionController extends Controller
 	        $dir = $this->get('kernel')->getRootDir().'/../web/uploads/';
 	        $contributionEntity->setType("fichier");
 	        $pereoufils = $request->request->get('pereoufils');
+          $contConsigne = $request->request->get('contributionconsigne');
 	        $contributionEntity->setFather($pereoufils);
+          $contributionEntity->setContconsigne($contConsigne);
 	  		foreach($request->files as $uploadedFile) 
 	  		{
 	  			$filename = $uploadedFile->getClientOriginalName();
@@ -252,6 +256,8 @@ class ContributionController extends Controller
         $time = $contri->getTime();
         // lien de la contribution
         $lien = $contri->getLien();
+        // contconsigne de la contribution
+        $contconsigne = $contri->getContconsigne();
         // debut remplissage tableau $tableauContributionFather
         $emContribution = $this->getDoctrine()
                            ->getManager()
@@ -262,7 +268,7 @@ class ContributionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($id);
         $idSubjectContribution = $contrib->getSubject()->getId();
-        return $this->render('InnovaForumMultimodalBundle:Commentaire:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'lien' => $lien,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'extension' => $extension,'countContribution' => $countContribution,));
+        return $this->render('InnovaForumMultimodalBundle:Commentaire:commentaireContribution.html.twig', array('id' => $id,'idSubjectContribution' => $idSubjectContribution,'lien' => $lien,'contents' => $contents,'subject' => $subject,'user' => $user,'date' => $date,'time' => $time,'type' => $type,'listeContributions' => $listeContributions,'contconsigne' => $contconsigne,'extension' => $extension,'countContribution' => $countContribution,));
   }
   /**
    * add a comment in text format

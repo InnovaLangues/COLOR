@@ -1,5 +1,5 @@
 innova_forum_multimodal_add_subject:
-    path:  /collectorama
+    path:  /forum/collectorama
     defaults: { _controller: InnovaForumMultimodalBundle:Forum:addSubject }
 
 innova_forum_multimodal_add_contribution_file:

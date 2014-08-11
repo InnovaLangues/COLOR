@@ -77,10 +77,12 @@ function afficher_cacher(id,x,y)
 				<tr>
 						<h5 style="text-align: left;">Apporter un commentaire à :</h5>
 						<td class="text-center" style="width: 10%; text-align: center;">
-							{% if type == "oral" %}
+							{% if type == "oral" and contconsigne != '1' %}
 								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/oral.png') }}" >
-							{% elseif type == "fichier" %}
+							{% elseif type == "fichier" and contconsigne != '1' %}
 								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/depot.png') }}" >
+							{% elseif contconsigne == "1" %}
+								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/consigne.png') }}" >
 							{% else %}
 								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/texte.png') }}" >
 							{% endif %}

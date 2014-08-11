@@ -349,27 +349,4 @@ class Contribution
     {
         return $this->subject;
     }
-
-    /**
-     * Set contconsigne
-     *
-     * @param string $contconsigne
-     * @return Contribution
-     */
-    public function setContconsigne($contconsigne)
-    {
-        $this->contconsigne = $contconsigne;
-
-        return $this;
-    }
-
-    /**
-     * Get contconsigne
-     *
-     * @return string 
-     */
-    public function getContconsigne()
-    {
-        return $this->contconsigne;
-    }
 }

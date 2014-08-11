@@ -32,6 +32,7 @@ class AjaxController extends Controller
 	  {
 	  	$idsujet = $_POST["idsujet"];
 	  	$pereoufils = $_POST["pereoufils"];
+	  	$contconsigne = $_POST["contconsigne"];
 		$request = $this->container->get('request');
 		$contribution = new Contribution();
 		$user = $this->get('security.context')->getToken()->getUser();
@@ -48,6 +49,7 @@ class AjaxController extends Controller
     	$contribution->setContents($file);
     	$contribution->setSubject($subject);
     	$contribution->setFather($pereoufils);
+    	$contribution->setContconsigne($contconsigne);
     	$em = $this->getDoctrine()->getManager();
         $em->persist($contribution);
         $em->flush();

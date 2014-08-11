@@ -20,7 +20,7 @@
 						</td>
 						{% if is_granted('ROLE_SUPER_ADMIN') %}
 						<td>
-							<a class="btn btn-danger" title="Ajouter une consigne " href="#">!</a> 
+							<a class="open-AddBookDialog btn btn-danger" title="Ajouter une consigne " data-toggle="modal" href="#" data-id="0" onclick="javascript:afficher_cacher('FormulaireChoixConsigne',0,'haut');">!</a> 
 						</td>
 						{% endif %}
 						<td style="width: 200%; text-align: center;">
@@ -43,10 +43,12 @@
 					{% for sons in listeContributions %}
 					<tr  id="monAncre">
 						<td>
-							{% if sons.type == "oral" %}
+							{% if sons.type == "oral" and sons.contconsigne != "1" %}
 								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/oral.png') }}" >
-							{% elseif sons.type == "fichier" %}
+							{% elseif sons.type == "fichier" and sons.contconsigne != "1" %}
 								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/depot.png') }}" >
+							{% elseif sons.contconsigne == "1" %}
+								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/consigne.png') }}" >
 							{% else %}
 								<img id="record" src="{{ asset('bundles/innovaforummultimodal/css/bootstrap/images/texte.png') }}" >
 							{% endif %}
@@ -102,7 +104,7 @@
 									  {{sons.contents | raw}}
 								{% endif %}
 								<br />
-								<div class="row" style="position: static; float: right;">
+								<div class="row" style="position: static; float: right; vertical-align:bottom;">
 								{% if is_granted('ROLE_SUPER_ADMIN') %}
 								<a href="{{ path('innova_forum_multimodal_update_contribution', { 'id': sons.id }) }}">Modifier</a>
 								<div class="span1">
@@ -116,7 +118,7 @@
 					{% endfor %}
 
 				</table>
-				<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" style="position: static; float: left;" onclick="javascript:afficher_cacher('FormulaireChoix',0,'basClick');">+</a> 
+				<a class="open-AddBookDialog btn btn-danger" title="Ajouter une contribution" data-toggle="modal" href="#" data-id="0" style="position: static; float: left;" onclick="javascript:afficher_cacher('FormulaireChoix',0,'basClick');">+</a> 
 				<table id="tableau">
 					<tr>
 						<td colspan="3">
@@ -169,6 +171,32 @@
 									        </table>
 								</div>				
 							</div>
+
+							<div id="forFormChoix_basConsigne">
+								<div id="FormulaireChoixConsigne" class="well">
+										<font color="blue">Ajouter une consigne - Choix du type de consigne</font>
+									        <table> 
+										        <div class="row">
+											                <div class="span3"> 
+										       					 <a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#Record" >Enregistrement audio</a>
+										       				</div>
+										       	</div>
+										       	<br />
+										       	<div class="row">
+											                <div class="span3"> 
+										       					 <a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#texte" >Edition texte</a>
+										       				</div>
+										       	</div>
+										       	<br />
+										       	<div class="row">
+											                <div class="span3">  
+																<a class="open-AddBookDialog btn btn-danger" data-toggle="modal" href="#" data-id="0" data-target="#file">Dêpot fichier</a>    
+															</div>
+										       	</div> 
+									        </table>
+								</div>
+							</div>
+
 						</td>
 					</tr>
 				</table>

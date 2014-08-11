@@ -35,6 +35,9 @@ class TinymceForm extends AbstractType
     ))
             ->add('token', 'hidden', array(
             "mapped" => false,
+        ))
+            ->add('token2', 'hidden', array(
+            "mapped" => false,
         ));
     }
     public function getName()

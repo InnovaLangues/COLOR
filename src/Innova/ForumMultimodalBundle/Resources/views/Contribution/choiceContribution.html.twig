@@ -56,8 +56,19 @@
 		var contributionOral = document.getElementById("pereoufilsoral");
 		contributionOral.value = x;
 		console.log(contributionOral);
+
+		// pour la divConsigne
+		
+		var contributionTexteConsigne = document.getElementById("innova_forummultimodalbundle_TinymceForm_token2");
+		contributionTexteConsigne.value = "0";
+		var contributionFileConsigne = document.getElementById("contributionconsigne");
+		contributionFileConsigne.value = "0";
+		var contributionOralConsigne = document.getElementById("contributionconsigneoral");
+		contributionOralConsigne.value = "0";
+
 		document.getElementById('forFormChoix_bas').style.display = 'none';
 		document.getElementById('forFormChoix_basCommentaire').style.display = 'none';
+		document.getElementById('forFormChoix_basConsigne').style.display = 'none';
 		// document.getElementById(id).style.visibility="visible";
 		if(x == 0 && y == "bas")
 		{
@@ -78,13 +89,17 @@
 			if(document.getElementById('forFormChoix_bas').style.display=="none")
 	        {
 	            document.getElementById('forFormChoix_bas').style.display="inline";
+	            // document.getElementById('forFormChoix_basCommentaire').style.display = 'none';
+	            console.log("test ...");
 	        }
 	        else
 	        {
 	            document.getElementById('forFormChoix_bas').style.display="none";
+	            // document.getElementById('forFormChoix_basCommentaire').style.display = 'none';
+	            console.log("test2 ...");
 	        }
 		}
-		else if(x == 0 && y != "bas")
+		else if(x == 0 && y != "bas" && id != "FormulaireChoixConsigne")
 		{
 			var div = document.createElement('div');
 			div.setAttribute('id', 'forFormChoix_0');
@@ -96,10 +111,38 @@
 			if(document.getElementById(idDivFormChoix).style.display=="none")
 	        {
 	            document.getElementById(idDivFormChoix).style.display="inline";
+	            document.getElementById('forFormChoix_consigne').style.display = 'none';
 	        }
 	        else
 	        {
 	            document.getElementById(idDivFormChoix).style.display="none";
+	            document.getElementById('forFormChoix_consigne').style.display = 'none';
+	        }
+		}
+		else if(x == 0 && y != "bas" && id == "FormulaireChoixConsigne")
+		{
+
+
+			contributionTexteConsigne.value = "1";
+			contributionFileConsigne.value = "1";
+			contributionOralConsigne.value = "1";
+
+			var div = document.createElement('divConsigne');
+			div.setAttribute('id', 'forFormChoix_consigne');
+			var td = document.getElementById("tdChoix");
+			td.appendChild( div );
+			var idDivFormChoix ="forFormChoix_consigne";
+			var DivFormChoix = document.getElementById(idDivFormChoix);
+			DivFormChoix.appendChild( document.getElementById(id) );
+			if(document.getElementById(idDivFormChoix).style.display=="none")
+	        {
+	            document.getElementById(idDivFormChoix).style.display="inline";
+	            document.getElementById('forFormChoix_0').style.display = 'none';
+	        }
+	        else
+	        {
+	            document.getElementById(idDivFormChoix).style.display="none";
+	            document.getElementById('forFormChoix_0').style.display = 'none';
 	        }
 		}
 		else

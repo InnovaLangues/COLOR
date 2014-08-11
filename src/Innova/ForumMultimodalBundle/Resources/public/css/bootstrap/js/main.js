@@ -116,7 +116,7 @@ function saveAudio() {
     // audioRecorder.exportMP3( doneEncoding );
     document.getElementById("ecouter").disabled = false;
     document.getElementById("deposer").disabled = false;
-    document.getElementById("annuler").disabled = false;
+    document.getElementById("annuler").disabled = true;
     audioRecorder.exportWAV( doneEncoding );
     affichageCompteur.style.visibility = "hidden";
     chargement2.style.visibility = "hidden";
@@ -128,7 +128,7 @@ function listen(stream) {
         /* Partie pour declarer la balise avec js */
         document.getElementById("ecouter").disabled = false;
         document.getElementById("deposer").disabled = false;
-        document.getElementById("annuler").disabled = false;
+        document.getElementById("annuler").disabled = true;
         audio.style.visibility = "visible";
         MsgEnregistrement.innerHTML = "Enregistrement terminé";
         totale.innerHTML = "Total : ";
@@ -150,11 +150,13 @@ function PostBlob(blob, fileName) {
     // FormData
     var idsujet=document.getElementById('idsujet').value;
     var pereoufils=document.getElementById('pereoufilsoral').value;
+    var contconsigne=document.getElementById('contributionconsigneoral').value;
     var formData = new FormData();
     formData.append('audio-filename', fileName);
     formData.append('audio-blob', blob);
     formData.append('idsujet', idsujet);
     formData.append('pereoufils', pereoufils);
+    formData.append('contconsigne', contconsigne);
     console.log("formdata : "+formData);
     // POST the Blob
     pathRouteAjax=Routing.generate('innova_forum_multimodal_upload');
@@ -206,7 +208,7 @@ function toggleRecording( e ) {
     document.getElementById("enregistrer").innerHTML =  "S'enregistrer";
     document.getElementById("ecouter").disabled = false;
     document.getElementById("deposer").disabled = false;
-    document.getElementById("annuler").disabled = false;
+    document.getElementById("annuler").disabled = true;
     if (e.classList.contains("recording")) {
         // stop recording
         audioRecorder.stop();
