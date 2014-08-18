@@ -26,12 +26,12 @@ test:
     prefix:     /
 
 innova_forum_page_accueil:
-    path:  /welcome
+    path:  /
     defaults: { _controller: InnovaForumMultimodalBundle:Forum:welcome }
 
-innova_sans_connexion:
-    path:  /
-    defaults: { _controller: InnovaForumMultimodalBundle:Forum:index }
+# innova_sans_connexion:
+#     path:  /
+#     defaults: { _controller: InnovaForumMultimodalBundle:Forum:index }
 
 innova_forum_multimodal_voir_contribution:
     path:  /forum/contribution/subject/{id}
