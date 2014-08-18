@@ -12,7 +12,7 @@
 {% for entity in entities %}
   <tr>
     <td><a href="{{ path('innova_forum_multimodal_voir_contribution', { 'id': entity.id }) }}"><strong>{{entity.sujet}}</strong> </a><br /> {{entity.consigne}}</td>
-    <td style="text-align: center; vertical-align: middle;">Collectorama créé le <span style="color: #1290D0;">{{entity.date|date("m/d/Y")}}</span><br /> <span
+    <td style="text-align: center; vertical-align: middle;">Collectorama créé le <span style="color: #1290D0;">{{entity.date|date("d/m/Y")}}</span><br /> <span
       style="font-size: small;">par {{entity.auteur}}</span>
     </td>
     <td style="text-align: center; vertical-align: middle;">{{ tableauCountContribution[compteur] }}</td>
