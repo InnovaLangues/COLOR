@@ -26,7 +26,7 @@ test:
     prefix:     /
 
 innova_forum_page_accueil:
-    path:  /
+    path:  /welcome
     defaults: { _controller: InnovaForumMultimodalBundle:Forum:welcome }
 
 # innova_sans_connexion:
