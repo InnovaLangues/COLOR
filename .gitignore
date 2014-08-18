@@ -4,6 +4,6 @@
 /app/cache/*
 /app/logs/*
 /app/config/parameters.yml
-
+/web/diaporama/*
 /web/uploads/*
 !web/uploads/.gitkeep
