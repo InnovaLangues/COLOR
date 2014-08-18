@@ -306,6 +306,7 @@ class ContributionController extends Controller
         $contributionEntity->setFather($request->request->get('idFather'));
         // le nombre d'ecoute par default est à zero
         $contributionEntity->SetListen(0);
+        $contributionEntity->setContconsigne("0");
         // id subjectObject
         $em = $this->getDoctrine()->getManager();
     	$contrib = $em->getRepository('InnovaForumMultimodalBundle:Contribution')->findOneById($request->request->get('idFather'));
@@ -346,6 +347,7 @@ class ContributionController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         // on affecte l'objet user à la contribution
         $contributionEntity->setUser($user);
+        $contributionEntity->setContconsigne("0");
      	// le dossier où on va mettre les fichiers uploadés
         $dir = $this->get('kernel')->getRootDir().'/../web/uploads/';
         $contributionEntity->setType("fichier");
